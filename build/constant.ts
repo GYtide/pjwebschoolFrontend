@@ -4,7 +4,7 @@
  */
 
 // 本地服务端口
-export const VITE_PORT = 5173;
+export const VITE_PORT = 5174;
 
 // 包依赖分析
 export const ANALYSIS = true;
