@@ -35,6 +35,10 @@
             <user-outlined/>
             <span>用户管理</span>
           </a-menu-item>
+          <a-menu-item key="order">
+            <user-outlined/>
+            <span>订单管理</span>
+          </a-menu-item>
           <a-sub-menu>
             <template #icon>
               <folder-outlined/>
