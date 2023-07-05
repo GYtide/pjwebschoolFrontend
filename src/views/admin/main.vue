@@ -10,7 +10,8 @@
         <a class="header-quit" @click="handleLogout">退出</a>
       </div>
     </a-layout-header>
-    <vHeader/>
+    <!-- <vTess/> -->
+    <!-- <vHeader/> -->
     <a-layout>
       <a-layout-sider v-model="collapsed" collapsible >
         <a-menu style="overflow:auto; overflow-x: hidden;" v-model:selectedKeys="selectedKeys" theme="dark" mode="inline" @click="handleClick">
@@ -101,7 +102,8 @@ import {
   DatabaseOutlined
 } from '@ant-design/icons-vue';
 
-import vHeader from '../../components/admin/header.vue'
+// import vHeader from './components/header.vue'
+// import vTess from './components/tess.vue'
 
 import {ref} from 'vue';
 import {useUserStore} from "/@/store";

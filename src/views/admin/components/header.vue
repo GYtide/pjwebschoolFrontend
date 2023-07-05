@@ -6,7 +6,7 @@
 			<el-icon v-else><Fold /></el-icon>
 		</div>
 		<div class="logo">妈妈我全对
-			<img src="../assets/img/logo.png"/>
+			<img src="../../../assets/images/logo2.svg"/>
 		</div>
 		<div class="header-right">
 			<div class="header-user-con">
@@ -19,7 +19,7 @@
 </template>
 <script setup lang="ts">
 import { onMounted } from 'vue';
-import { useSidebarStore } from '../../store';
+import { useSidebarStore } from '/@/store';
 import { useRouter } from 'vue-router';
 import imgurl from '../../assets/images/logo2.svg';
 
