@@ -73,7 +73,7 @@ const contentData = reactive({
   tagData: [],
   loading: false,
 
-  tabData: ['最新', '最热', '推荐'],
+  tabData: ['最新', '最热', '推荐','同城'],
   selectTabIndex: 0,
   tabUnderLeft: 12,
 
@@ -129,7 +129,20 @@ const selectTab = (index) => {
   contentData.selectTabIndex = index
   contentData.tabUnderLeft = 12 + 50 * index
   console.log(contentData.selectTabIndex)
-  let sort = (index === 0 ? 'recent' : index === 1 ? 'hot' : 'recommend')
+  // let sort = (index === 0 ? 'recent' : index === 1 ? 'hot' :'recommend')
+
+  let sort ='recent'
+
+  if(index ==1){
+    sort = 'hot'
+  }
+  else if(index == 2){
+    sort = 'recommend'
+  }
+  else if(index ==3){
+    sort = 'loc'
+  }
+  
   const data = {sort: sort}
   if (contentData.selectTagId !== -1) {
     data['tag'] = contentData.selectTagId
