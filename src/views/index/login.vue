@@ -43,7 +43,7 @@
 <script setup lang="ts">
 import {useUserStore} from '/@/store';
 import {message} from "ant-design-vue";
-import LogoIcon from '/@/assets/images/k-logo.png';
+import LogoIcon from '/@/assets/images/logo2.svg';
 import MailIcon from '/@/assets/images/mail-icon.svg';
 import PwdIcon from '/@/assets/images/pwd-icon.svg';
 
