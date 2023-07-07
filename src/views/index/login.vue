@@ -63,7 +63,6 @@ import { message } from "ant-design-vue";
 import LogoIcon from '/@/assets/images/logo2.svg';
 import MailIcon from '/@/assets/images/mail-icon.svg';
 import PwdIcon from '/@/assets/images/pwd-icon.svg';
-import KeyOutlined from '/@/assets/images/icons8-key.svg';
 
 
 const router = useRouter();
