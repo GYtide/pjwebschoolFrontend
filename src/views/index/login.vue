@@ -16,7 +16,6 @@
             <p class="err-view">
             </p>
           </div>
-          <!---->
         </div>
         <div class="common-input">
           <img :src="PwdIcon" class="left-icon">
@@ -30,7 +29,7 @@
           <button class="next-btn btn-active" style="margin: 16px 0px;" @click="handleLogin">登录</button>
         </div>
       </div>
-      <div class="email-login" v-if="loginMethod === 'email'" type="login">
+      <div class="mail-login" v-if="loginMethod === 'email'" type="login">
         <div class="common-input">
           <img :src="MailIcon" class="left-icon">
           <div class="input-view">
@@ -39,10 +38,10 @@
             </p>
           </div>
         </div>
-        <div class="captcha-input">
-          <p class="err-view"></p>
-          <a-input-search v-model:value="pageData.mailForm.captcha" placeholder="请输入验证码" size="large" enter-button="发送验证码"
-            @search="handleEmailSend">
+        <div class="common-input">
+          <img :src="PwdIcon" class="left-icon" />
+          <a-input-search v-model:value="pageData.mailForm.captcha" placeholder="请输入验证码" size="middle"
+            enter-button="发送验证码" @search="handleEmailSend">
           </a-input-search>
         </div>
         <div class="next-btn-view">
@@ -64,6 +63,7 @@ import { message } from "ant-design-vue";
 import LogoIcon from '/@/assets/images/logo2.svg';
 import MailIcon from '/@/assets/images/mail-icon.svg';
 import PwdIcon from '/@/assets/images/pwd-icon.svg';
+import KeyOutlined from '/@/assets/images/icons8-key.svg';
 
 
 const router = useRouter();
@@ -224,7 +224,7 @@ div {
     font-weight: 500;
   }
 
-  .mail-login .email-login .tel-login {
+  .mail-login .tel-login {
     padding: 0 28px;
   }
 
@@ -232,11 +232,6 @@ div {
 
 .mail-login {
   margin: 0px 24px;
-}
-
-.captcha-input {
-  display: -webkit-box;
-  display: -ms-flexbox;
 }
 
 .common-input {
