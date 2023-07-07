@@ -10,7 +10,6 @@ interface LoginRes {
 }
 
 export interface mailData {
-  id: string;
   usermail: string;
 }
 
@@ -22,6 +21,7 @@ export interface captchaVerify {
 const sendApi = async (data: mailData) =>
   post<any>({ url: URL.send, data, headers: { 'Content-Type': 'multipart/form-data;charset=utf-8' } });
 
-const verifyApi = async (data: captchaVerify) => post<any>({ url: URL.verify, data, headers: {} });
+const verifyApi = async (data: captchaVerify) =>
+  post<any>({ url: URL.verify, data, headers: { 'Content-Type': 'multipart/form-data;charset=utf-8' } });
 
 export { sendApi, verifyApi };

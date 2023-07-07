@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import { loginApi as adminLogin, userLoginApi } from '/@/api/user';
+import { sendApi, verifyApi } from '/@/api/mail';
 import { setToken, clearToken } from '/@/utils/auth';
 import { UserState } from './types';
 import { USER_ID, USER_NAME, USER_TOKEN, ADMIN_USER_ID, ADMIN_USER_NAME, ADMIN_USER_TOKEN } from '/@/store/constants';
@@ -16,6 +17,35 @@ export const useUserStore = defineStore('user', {
   }),
   getters: {},
   actions: {
+    // 请求邮箱验证码
+    async sendcaptcha(useremail) {
+      const result = await sendApi(useremail);
+      console.log('result==>');
+      console.log('result==>', result);
+      return result;
+    },
+
+    // 验证码验证
+    async verifycaptcha(usercaptcha) {
+      const result = await verifyApi(usercaptcha);
+      console.log('result==>', result);
+
+      if (result.code === 200) {
+        this.$patch((state) => {
+          state.user_id = result.data.id;
+          state.user_name = result.data.username;
+          state.user_token = result.data.token;
+          console.log('state==>', state);
+        });
+
+        localStorage.setItem(USER_TOKEN, result.data.token);
+        localStorage.setItem(USER_NAME, result.data.username);
+        localStorage.setItem(USER_ID, result.data.id);
+      }
+
+      return result;
+    },
+
     // 用户登录
     async login(loginForm) {
       const result = await userLoginApi(loginForm);
