@@ -58,11 +58,6 @@ const constantRouterMap = [
             component: () => import('/@/views/index/user/address-view.vue'),
           },
           {
-            path: 'studetail',
-            name: 'studetail',
-            // component: () => import('/@/views/index/user/stu-detail.vue'),
-          },
-          {
             path: 'wishThingView',
             name: 'wishThingView',
             component: () => import('/@/views/index/user/wish-thing-view.vue'),
