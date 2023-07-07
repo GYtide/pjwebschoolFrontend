@@ -45,6 +45,10 @@
           <img :src="SafeIconImage" alt="账号安全">
           <span>账号安全</span>
         </div>
+        <div class="mine-item flex-view" @click="clickMenu('jiajiaoOrderView')">
+          <img :src="MyOrderImg" alt="订单管理">
+          <span>订单管理</span>
+        </div>
         <div class="mine-item flex-view" @click="clickMenu('pushView')">
           <img :src="PushIconImage" alt="推送设置">
           <span>推送设置</span>
