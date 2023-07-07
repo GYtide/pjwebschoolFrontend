@@ -60,7 +60,7 @@ const constantRouterMap = [
           {
             path: 'studetail',
             name: 'studetail',
-            component: () => import('/@/views/index/user/stu-detail.vue'),
+            // component: () => import('/@/views/index/user/stu-detail.vue'),
           },
           {
             path: 'wishThingView',
@@ -76,6 +76,11 @@ const constantRouterMap = [
             path: 'jiajiaoEditView',
             name: 'jiajiaoEditView',
             component: () => import('/@/views/index/user/jiajiao-edit-view.vue'),
+          },
+          {
+            path: 'jiajiaoOrderView',
+            name: 'jiajiaoOrderView',
+            component: () => import('/@/views/index/user/jiajiao-order-view.vue'),
           },
           {
             path: 'userInfoEditView',

@@ -36,10 +36,16 @@
                   <span>地区：</span>
                   <span class="name">{{ detailData.location }}</span>
                 </div>
-                <button class="buy-btn" @click="handleOrder(detailData)">
-                  <img :src="AddIcon" />
-                  <span>立即联系</span>
-                </button>
+                <div class="flex-view">
+                  <button class="buy-btn" @click="handleOrder(detailData)">
+                    <img :src="AddIcon" />
+                    <span>立即联系</span>
+                  </button>
+                  <button class="buy-btn" @click="handleOrder(detailData)">
+                    <img :src="AddIcon" />
+                    <span>下单</span>
+                  </button>
+                </div>
               </div>
 
             </div>
@@ -586,6 +592,8 @@ const sortCommentList =(sortType)=> {
   outline: none;
   border: none;
   margin-top: 18px;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 .buy-btn img {
