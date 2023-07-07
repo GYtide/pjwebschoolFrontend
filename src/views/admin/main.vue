@@ -19,6 +19,10 @@
             <database-outlined/>
             <span>家教管理</span>
           </a-menu-item>
+          <a-menu-item key="resource">
+            <database-outlined/>
+            <span>资料管理</span>
+          </a-menu-item>
           <a-menu-item key="classification">
             <layout-outlined/>
             <span>科目管理</span>
