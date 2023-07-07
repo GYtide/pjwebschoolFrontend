@@ -7,7 +7,7 @@
         <div class="item flex-view">
           <div class="label">头像</div>
           <div class="right-box avatar-box flex-view">
-            <img v-if="tData.form && tData.form.avatar" :src="tData.form.avatar" class="avatar">
+            <img id="avatar-img" v-if="tData.form && tData.form.avatar" :src="tData.form.avatar" class="avatar">
             <img v-else :src="AvatarIcon" class="avatar">
             <div class="change-tips flex-view">
                 <a-upload
@@ -32,13 +32,19 @@
         <div class="item flex-view">
           <div class="label">性别</div>
           <div class="right-box">
-            <input type="text" v-model="tData.form.sex" placeholder="请输入性别" maxlength="100" class="input-dom web-input">
+            <a-select placeholder="请选择性别"
+                      allowClear
+                      style="width: 200px;"
+                      v-model:value="tData.form.sex">
+              <a-select-option value="男">男</a-select-option>
+              <a-select-option value="女">女</a-select-option>
+            </a-select>
           </div>
         </div>
         <div class="item flex-view">
           <div class="label">年龄</div>
           <div class="right-box">
-            <input type="number" v-model="tData.form.age" placeholder="请输入年龄" maxlength="100" class="input-dom web-input">
+            <input type="number" v-model="tData.form.age" placeholder="请输入年龄" maxlength="100" class="input-dom web-input" min="1">
           </div>
         </div>
         <div class="item flex-view">
@@ -50,19 +56,19 @@
         <div class="item flex-view">
           <div class="label">小时价格</div>
           <div class="right-box">
-            <input type="number" v-model="tData.form.price" placeholder="请输入价格" maxlength="100" class="input-dom web-input">
+            <input type="number" v-model="tData.form.price" placeholder="请输入价格" maxlength="100" class="input-dom web-input" min="0">
           </div>
         </div>
         <div class="item flex-view">
           <div class="label">手机号</div>
           <div class="right-box">
-            <input type="number" v-model="tData.form.mobile" placeholder="请输入邮箱" maxlength="100" class="input-dom web-input">
+            <input type="text" v-model="tData.form.mobile" placeholder="请输入手机号" maxlength="100" class="input-dom web-input">
           </div>
         </div>
         <div class="item flex-view">
           <div class="label">科目</div>
           <div class="right-box">
-            <a-select placeholder="请选择"
+            <a-select placeholder="请选择科目"
                       allowClear
                       :options="cData"
                       style="width: 200px;"
@@ -114,7 +120,7 @@ let tData = reactive({
 })
 
 let cData = ref([])
-
+let sexOption = {"男":String, "女":String}
 onMounted(()=>{
   getCDataList()
   getUserThing()

@@ -58,11 +58,14 @@ const constantRouterMap = [
             component: () => import('/@/views/index/user/address-view.vue'),
           },
           {
+<<<<<<< HEAD
             path: 'studetail',
             name: 'studetail',
             // component: () => import('/@/views/index/user/stu-detail.vue'),
           },
           {
+=======
+>>>>>>> b83135cbb5c87fc2402aedd3177516cb562c85b5
             path: 'wishThingView',
             name: 'wishThingView',
             component: () => import('/@/views/index/user/wish-thing-view.vue'),
@@ -76,6 +79,11 @@ const constantRouterMap = [
             path: 'jiajiaoEditView',
             name: 'jiajiaoEditView',
             component: () => import('/@/views/index/user/jiajiao-edit-view.vue'),
+          },
+          {
+            path: 'jiajiaoOrderView',
+            name: 'jiajiaoOrderView',
+            component: () => import('/@/views/index/user/jiajiao-order-view.vue'),
           },
           {
             path: 'userInfoEditView',

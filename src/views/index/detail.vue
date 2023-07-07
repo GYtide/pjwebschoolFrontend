@@ -1,6 +1,6 @@
 <template>
   <div class="detail">
-    <Header/>
+    <Header />
 
     <div class="detail-content">
       <div class="detail-content-top">
@@ -8,7 +8,7 @@
           <div class="thing-infos-view">
             <div class="thing-infos">
               <div class="thing-img-box">
-                <img :src="detailData.cover"/>
+                <img :src="detailData.cover" />
               </div>
               <div class="thing-info-box">
                 <div class="thing-state">
@@ -18,7 +18,7 @@
                 <h1 class="thing-name">{{ detailData.title }}</h1>
                 <span>
                   <span class="a-price-symbol"></span>
-                  <span class="a-price" style="font-size: 20px;">{{detailData.price}}元/时</span>
+                  <span class="a-price" style="font-size: 20px;">{{ detailData.price }}元/时</span>
                 </span>
                 <div class="translators flex-view" style="">
                   <span>科目：</span>
@@ -36,10 +36,16 @@
                   <span>地区：</span>
                   <span class="name">{{ detailData.location }}</span>
                 </div>
-                <button class="buy-btn" @click="handleOrder(detailData)">
-                  <img :src="AddIcon" />
-                  <span>立即联系</span>
-                </button>
+                <div class="flex-view">
+                  <button class="buy-btn" @click="handleOrder(detailData)">
+                    <img :src="AddIcon" />
+                    <span>立即联系</span>
+                  </button>
+                  <button class="buy-btn" @click="handleOrder(detailData)">
+                    <img :src="AddIcon" />
+                    <span>下单</span>
+                  </button>
+                </div>
               </div>
 
             </div>
@@ -92,23 +98,20 @@
         <div class="thing-content-view flex-view">
           <div class="main-content">
             <div class="order-view main-tab">
-          <span class="tab"
-                :class="selectTabIndex===index? 'tab-select':''"
-                v-for="(item,index) in tabData"
-                :key="index"
-                @click="selectTab(index)">
-            {{ item }}
-          </span>
-              <span :style="{left: tabUnderLeft + 'px'}" class="tab-underline"></span>
+              <span class="tab" :class="selectTabIndex === index ? 'tab-select' : ''" v-for="(item, index) in tabData"
+                :key="index" @click="selectTab(index)">
+                {{ item }}
+              </span>
+              <span :style="{ left: tabUnderLeft + 'px' }" class="tab-underline"></span>
             </div>
 
             <!--简介-->
-            <div class="thing-intro" :class="selectTabIndex <= 0? '':'hide'">
+            <div class="thing-intro" :class="selectTabIndex <= 0 ? '' : 'hide'">
               <p class="text" style="">{{ detailData.description }}</p>
             </div>
 
             <!--评论-->
-            <div class="thing-comment" :class="selectTabIndex > 0? '':'hide'">
+            <div class="thing-comment" :class="selectTabIndex > 0 ? '' : 'hide'">
               <div class="title">发表新的评论</div>
               <div class="publish flex-view">
                 <img :src="AvatarIcon" class="mine-img">
@@ -118,9 +121,9 @@
               <div class="tab-view flex-view">
                 <div class="count-text">共有{{ commentData.length }}条评论</div>
                 <div class="tab-box flex-view" v-if="commentData.length > 0">
-                  <span :class="sortIndex === 0? 'tab-select': ''" @click="sortCommentList('recent')">最新</span>
+                  <span :class="sortIndex === 0 ? 'tab-select' : ''" @click="sortCommentList('recent')">最新</span>
                   <div class="line"></div>
-                  <span :class="sortIndex === 1? 'tab-select': ''" @click="sortCommentList('hot')">热门</span>
+                  <span :class="sortIndex === 1 ? 'tab-select' : ''" @click="sortCommentList('hot')">热门</span>
                 </div>
               </div>
               <div class="comments-list">
@@ -155,7 +158,8 @@
             <div class="things">
               <div class="thing-item thing-item" v-for="item in recommendData" @click="handleDetail(item)">
                 <div class="img-view">
-                  <img :src="item.cover"></div>
+                  <img :src="item.cover">
+                </div>
                 <div class="info-view">
                   <h3 class="thing-name">{{ item.title.substring(0, 12) }}</h3>
                   <span>
@@ -171,34 +175,34 @@
       </div>
     </div>
 
-    <Footer/>
+    <Footer />
   </div>
 </template>
 <script setup>
-import {message, Modal} from "ant-design-vue";
+import { message, Modal } from "ant-design-vue"
 import Header from '/@/views/index/components/header.vue'
 import Footer from '/@/views/index/components/footer.vue'
-import AddIcon from '/@/assets/images/add.svg';
-import WantIcon from '/@/assets/images/want-read-hover.svg';
-import RecommendIcon from '/@/assets/images/recommend-hover.svg';
-import ShareIcon from '/@/assets/images/share-icon.svg';
-import WeiboShareIcon from '/@/assets/images/wb-share.svg';
-import AvatarIcon from '/@/assets/images/avatar.jpg';
+import AddIcon from '/@/assets/images/add.svg'
+import WantIcon from '/@/assets/images/want-read-hover.svg'
+import RecommendIcon from '/@/assets/images/recommend-hover.svg'
+import ShareIcon from '/@/assets/images/share-icon.svg'
+import WeiboShareIcon from '/@/assets/images/wb-share.svg'
+import AvatarIcon from '/@/assets/images/avatar.jpg'
 import {
   detailApi,
   listApi as listThingList,
 } from '/@/api/thing'
-import {listThingCommentsApi, createApi as createCommentApi, likeApi} from '/@/api/comment'
-import {wishApi} from '/@/api/thingWish'
-import {collectApi} from '/@/api/thingCollect'
-import {BASE_URL} from "/@/store/constants";
-import {useRoute, useRouter} from "vue-router/dist/vue-router";
-import {useUserStore} from "/@/store";
-import {getFormatTime} from "/@/utils";
+import { listThingCommentsApi, createApi as createCommentApi, likeApi } from '/@/api/comment'
+import { wishApi } from '/@/api/thingWish'
+import { collectApi } from '/@/api/thingCollect'
+import { BASE_URL } from "/@/store/constants"
+import { useRoute, useRouter } from "vue-router/dist/vue-router"
+import { useUserStore } from "/@/store"
+import { getFormatTime } from "/@/utils"
 
 const router = useRouter()
 const route = useRoute()
-const userStore = useUserStore();
+const userStore = useUserStore()
 
 
 let thingId = ref('')
@@ -214,30 +218,30 @@ let order = ref('recent') // 默认排序最新
 
 let commentRef = ref()
 
-onMounted(()=>{
+onMounted(() => {
   thingId.value = route.query.id.trim()
   getThingDetail()
   getRecommendThing()
   getCommentList()
 })
 
-const selectTab =(index)=> {
+const selectTab = (index) => {
   selectTabIndex.value = index
   tabUnderLeft.value = 6 + 54 * index
 }
 
-const getThingDetail =()=> {
-  detailApi({id: thingId.value}).then(res => {
+const getThingDetail = () => {
+  detailApi({ id: thingId.value }).then(res => {
     detailData.value = res.data
     detailData.value.cover = BASE_URL + '/api/staticfiles/image/' + detailData.value.cover
   }).catch(err => {
     message.error('获取详情失败')
   })
 }
-const addToWish =()=> {
+const addToWish = () => {
   let userId = userStore.user_id
   if (userId) {
-    wishApi({thingId: thingId.value, userId: userId}).then(res => {
+    wishApi({ thingId: thingId.value, userId: userId }).then(res => {
       message.success(res.msg)
       getThingDetail()
     }).catch(err => {
@@ -247,10 +251,10 @@ const addToWish =()=> {
     message.warn('请先登录')
   }
 }
-const collect =()=> {
+const collect = () => {
   let userId = userStore.user_id
   if (userId) {
-    collectApi({thingId: thingId.value, userId: userId}).then(res => {
+    collectApi({ thingId: thingId.value, userId: userId }).then(res => {
       message.success(res.msg)
       getThingDetail()
     }).catch(err => {
@@ -260,28 +264,28 @@ const collect =()=> {
     message.warn('请先登录')
   }
 }
-const share =()=> {
+const share = () => {
   let content = '分享一个非常好玩的网站 ' + window.location.href
   let shareHref = 'http://service.weibo.com/share/share.php?title=' + content
   window.open(shareHref)
 }
-const handleOrder =(detailData)=> {
+const handleOrder = (detailData) => {
   console.log(detailData)
   const userId = userStore.user_id
 
-  if(userId){
+  if (userId) {
     Modal.info({
       title: '联系方式',
-      content: '家教联系电话：'+detailData.mobile,
-      onOk() {
+      content: '家教联系电话：' + detailData.mobile,
+      onOk () {
       },
-    });
-  }else{
+    })
+  } else {
     message.warn("请先登录！")
   }
 }
-const getRecommendThing =()=> {
-  listThingList({sort: 'recommend'}).then(res => {
+const getRecommendThing = () => {
+  listThingList({ sort: 'recommend' }).then(res => {
     res.data.forEach((item, index) => {
       if (item.cover) {
         item.cover = BASE_URL + '/api/staticfiles/image/' + item.cover
@@ -293,12 +297,12 @@ const getRecommendThing =()=> {
     console.log(err)
   })
 }
-const handleDetail =(item)=> {
+const handleDetail = (item) => {
   // 跳转新页面
-  let text = router.resolve({name: 'detail', query: {id: item.id}})
+  let text = router.resolve({ name: 'detail', query: { id: item.id } })
   window.open(text.href, '_blank')
 }
-const sendComment =()=> {
+const sendComment = () => {
   console.log(commentRef.value)
   let text = commentRef.value.value.trim()
   console.log(text)
@@ -308,25 +312,25 @@ const sendComment =()=> {
   commentRef.value.value = ''
   let userId = userStore.user_id
   if (userId) {
-    createCommentApi({content: text, thingId: thingId.value, userId: userId}).then(res => {
+    createCommentApi({ content: text, thingId: thingId.value, userId: userId }).then(res => {
       getCommentList()
     }).catch(err => {
       console.log(err)
     })
   } else {
     message.warn('请先登录！')
-    router.push({name: 'login'})
+    router.push({ name: 'login' })
   }
 }
-const like =(commentId)=> {
-  likeApi({id: commentId}).then(res => {
+const like = (commentId) => {
+  likeApi({ id: commentId }).then(res => {
     getCommentList()
   }).catch(err => {
     console.log(err)
   })
 }
-const getCommentList =()=> {
-  listThingCommentsApi({thingId: thingId.value, order: order.value}).then(res => {
+const getCommentList = () => {
+  listThingCommentsApi({ thingId: thingId.value, order: order.value }).then(res => {
     res.data.forEach(item => {
       item.commentTime = getFormatTime(item.commentTime, true)
     })
@@ -335,7 +339,7 @@ const getCommentList =()=> {
     console.log(err)
   })
 }
-const sortCommentList =(sortType)=> {
+const sortCommentList = (sortType) => {
   if (sortType === 'recent') {
     sortIndex.value = 0
   } else {
@@ -347,7 +351,6 @@ const sortCommentList =(sortType)=> {
 
 </script>
 <style scoped lang="less">
-
 .hide {
   display: none;
 }
@@ -464,15 +467,16 @@ const sortCommentList =(sortType)=> {
   .thing-name {
     line-height: 32px;
     margin: 16px 0;
-    color: #0F1111!important;
-    font-size: 15px!important;
-    font-weight: 400!important;
-    font-style: normal!important;
-    text-transform: none!important;
-    text-decoration: none!important;
+    color: #0F1111 !important;
+    font-size: 15px !important;
+    font-weight: 400 !important;
+    font-style: normal !important;
+    text-transform: none !important;
+    text-decoration: none !important;
   }
 
-  .translators, .authors {
+  .translators,
+  .authors {
     line-height: 18px;
     font-size: 14px;
     margin: 8px 0;
@@ -586,6 +590,8 @@ const sortCommentList =(sortType)=> {
   outline: none;
   border: none;
   margin-top: 18px;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 .buy-btn img {
@@ -722,15 +728,16 @@ const sortCommentList =(sortType)=> {
         //background: #f6f9fb;
         overflow: hidden;
         padding: 0 16px;
+
         .thing-name {
           line-height: 32px;
           margin-top: 12px;
-          color: #0F1111!important;
-          font-size: 15px!important;
-          font-weight: 400!important;
-          font-style: normal!important;
-          text-transform: none!important;
-          text-decoration: none!important;
+          color: #0F1111 !important;
+          font-size: 15px !important;
+          font-weight: 400 !important;
+          font-style: normal !important;
+          text-transform: none !important;
+          text-decoration: none !important;
         }
 
         .price {
@@ -943,8 +950,9 @@ const sortCommentList =(sortType)=> {
   top: -0.5em;
   font-size: 12px;
 }
+
 .a-price {
   color: #0F1111;
-  font-size:14px;
+  font-size: 14px;
 }
 </style>
