@@ -3,20 +3,19 @@
     <div class="login-page pc-style">
       <img :src="LogoIcon" alt="logo" class="logo-icon">
       <div class="login-tab">
-        <div class="tab-selected">
-          <span>邮箱登录</span>
-          <span class="tabline tabline-width"></span>
-        </div>
+        <a-radio-group v-model:value="loginMethod" size="large">
+          <a-radio-button value="password">密码登录</a-radio-button>
+          <a-radio-button value="email">邮箱登录</a-radio-button>
+        </a-radio-group>
       </div>
-      <div class="mail-login" type="login">
+      <div class="mail-login" v-if="loginMethod === 'password'" type="login">
         <div class="common-input">
           <img :src="MailIcon" class="left-icon">
           <div class="input-view">
-            <input placeholder="请输入注册邮箱" v-model="pageData.loginForm.username" type="text" class="input">
+            <input placeholder="请输入用户名" v-model="pageData.loginForm.username" type="text" class="input">
             <p class="err-view">
             </p>
           </div>
-          <!---->
         </div>
         <div class="common-input">
           <img :src="PwdIcon" class="left-icon">
@@ -25,11 +24,28 @@
             <p class="err-view">
             </p>
           </div>
-<!--          <img src="@/assets/pwd-hidden.svg" class="right-icon">-->
-          <!---->
         </div>
         <div class="next-btn-view">
           <button class="next-btn btn-active" style="margin: 16px 0px;" @click="handleLogin">登录</button>
+        </div>
+      </div>
+      <div class="mail-login" v-if="loginMethod === 'email'" type="login">
+        <div class="common-input">
+          <img :src="MailIcon" class="left-icon">
+          <div class="input-view">
+            <input placeholder="请输入登录邮箱" v-model="pageData.mailForm.usermail" type="text" class="input">
+            <p class="err-view">
+            </p>
+          </div>
+        </div>
+        <div class="common-input">
+          <img :src="PwdIcon" class="left-icon" />
+          <a-input-search v-model:value="pageData.mailForm.captcha" placeholder="请输入验证码" size="middle"
+            enter-button="发送验证码" @search="handleEmailSend">
+          </a-input-search>
+        </div>
+        <div class="next-btn-view">
+          <button class="next-btn btn-active" style="margin: 16px 0px;" @click="handleEmailLogin">登录</button>
         </div>
       </div>
       <div class="operation">
@@ -41,8 +57,9 @@
 </template>
 
 <script setup lang="ts">
-import {useUserStore} from '/@/store';
-import {message} from "ant-design-vue";
+import { ref } from 'vue'
+import { useUserStore } from '/@/store';
+import { message } from "ant-design-vue";
 import LogoIcon from '/@/assets/images/logo2.svg';
 import MailIcon from '/@/assets/images/mail-icon.svg';
 import PwdIcon from '/@/assets/images/pwd-icon.svg';
@@ -50,19 +67,48 @@ import PwdIcon from '/@/assets/images/pwd-icon.svg';
 
 const router = useRouter();
 const userStore = useUserStore();
+const loginMethod = ref('email')
 
 const pageData = reactive({
   loginForm: {
     username: '',
     password: ''
+  },
+  mailForm: {
+    usermail: "gytide@qq.com",
+    captcha: "",
   }
 })
 
-const handleLogin = ()=> {
+const handleLogin = () => {
   userStore.login({
     username: pageData.loginForm.username,
     password: pageData.loginForm.password
-  }).then(res=> {
+  }).then(res => {
+    loginSuccess()
+    console.log('success==>', userStore.user_name)
+    console.log('success==>', userStore.user_id)
+    console.log('success==>', userStore.user_token)
+  }).catch(err => {
+    message.warn(err.msg || '登录失败')
+  })
+}
+
+const handleEmailSend = () => {
+  userStore.sendcaptcha({ usermail: pageData.mailForm.usermail }).then(
+    res => {
+      if (res.code == 200) {
+        message.warn(res.msg || '发送成功')
+      }
+    }
+  )
+}
+
+const handleEmailLogin = () => {
+  userStore.verifycaptcha({
+    usermail: pageData.mailForm.usermail,
+    captcha: pageData.mailForm.captcha
+  }).then(res => {
     loginSuccess()
     console.log('success==>', userStore.user_name)
     console.log('success==>', userStore.user_id)
@@ -73,10 +119,10 @@ const handleLogin = ()=> {
 }
 
 const handleCreateUser = () => {
-  router.push({name:'register'})
+  router.push({ name: 'register' })
 }
 
-const loginSuccess= ()=> {
+const loginSuccess = () => {
   router.push({ name: 'portal' })
   message.success('登录成功！')
 }
@@ -95,9 +141,9 @@ div {
   object-fit: cover;
   height: 100%;
   max-width: 100%;
-  display:flex;
+  display: flex;
   justify-content: center;
-  align-items:center;
+  align-items: center;
 }
 
 .new-content {
@@ -177,7 +223,7 @@ div {
     font-weight: 500;
   }
 
-  .mail-login, .tel-login {
+  .mail-login .tel-login {
     padding: 0 28px;
   }
 
@@ -248,7 +294,10 @@ button {
   border-width: 0px;
 }
 
-button, input, select, textarea {
+button,
+input,
+select,
+textarea {
   margin: 0;
   padding: 0;
   outline: none;
@@ -264,11 +313,10 @@ button, input, select, textarea {
   //text-align: center;
   display: block;
   overflow: hidden;
-  flex:1;
+  flex: 1;
   margin: 0 auto;
   color: #3d5b96;
   font-size: 14px;
   cursor: pointer;
 }
-
 </style>
