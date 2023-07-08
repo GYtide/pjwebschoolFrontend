@@ -14,7 +14,7 @@ const constantRouterMap = [
       {
         path: 'home',
         name: 'home',
-        componet: () => import('/@/views/index/home.vue'),
+        component: () => import('/@/views/index/home.vue'),
       },
       {
         path: 'login',

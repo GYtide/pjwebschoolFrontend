@@ -1,43 +1,47 @@
 <template>
-  <div>asdasda</div>
+  <a-carousel autoplay>
+    <div>
+      <img src="../../assets/images/carousel01.jpg" />
+    </div>
+    <div>
+      <img src="../../assets/images/carousel02.jpg" />
+    </div>
+    <div>
+      <img src="../../assets/images/carousel03.jpg" />
+    </div>
+  </a-carousel>
 </template>
-<script  setup lang="ts">
+<script>
+export default {}
 </script>
 <style scoped>
 /* For demo */
-.ant-carousel :deep(.slick-dots) {
-  position: relative;
+.ant-carousel>>>.slick-dots {
   height: auto;
 }
 
-.ant-carousel :deep(.slick-slide img) {
+.ant-carousel>>>.slick-slide img {
   border: 5px solid #fff;
   display: block;
   margin: auto;
   max-width: 80%;
 }
 
-.ant-carousel :deep(.slick-arrow) {
-  display: none !important;
+.ant-carousel>>>.slick-thumb {
+  bottom: -45px;
 }
 
-.ant-carousel :deep(.slick-thumb) {
-  bottom: 0px;
-}
-
-.ant-carousel :deep(.slick-thumb li) {
+.ant-carousel>>>.slick-thumb li {
   width: 60px;
   height: 45px;
 }
 
-.ant-carousel :deep(.slick-thumb li img) {
+.ant-carousel>>>.slick-thumb li img {
   width: 100%;
   height: 100%;
   filter: grayscale(100%);
-  display: block;
 }
 
-.ant-carousel :deep .slick-thumb li.slick-active img {
+.ant-carousel>>>.slick-thumb li.slick-active img {
   filter: grayscale(0%);
-}
-</style>
+}</style>

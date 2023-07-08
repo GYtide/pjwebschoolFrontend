@@ -7,6 +7,8 @@ import { ADMIN_USER_TOKEN, USER_TOKEN } from '/@/store/constants';
 const allowList = ['adminLogin', 'home', 'login', 'register', 'portal', 'search', 'detail', '403', '404'];
 // 前台登录地址
 const loginRoutePath = '/index/login';
+// 前台首页地址
+const homeRoutePath = '/index/home';
 // 后台登录地址
 const adminLoginRoutePath = '/adminLogin';
 
@@ -50,7 +52,8 @@ router.beforeEach(async (to, from, next) => {
         // 在免登录名单，直接进入
         next();
       } else {
-        next({ path: loginRoutePath, query: { redirect: to.fullPath } });
+        // next({ path: loginRoutePath, query: { redirect: to.fullPath } });
+        next({ path: homeRoutePath });
       }
     }
     // next()
