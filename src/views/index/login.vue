@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="login-page pc-style">
-      <img :src="LogoIcon" alt="logo" class="logo-icon">
+        <img :src="LogoIcon" alt="logo" class="logo-icon">
       <div class="login-tab">
         <a-radio-group v-model:value="loginMethod" size="large">
           <a-radio-button value="password">密码登录</a-radio-button>

@@ -12,6 +12,11 @@ const constantRouterMap = [
     component: () => import('/@/views/index/index.vue'),
     children: [
       {
+        path: 'home',
+        name: 'home',
+        componet: () => import('/@/views/index/home.vue'),
+      },
+      {
         path: 'login',
         name: 'login',
         component: () => import('/@/views/index/login.vue'),
@@ -58,14 +63,6 @@ const constantRouterMap = [
             component: () => import('/@/views/index/user/address-view.vue'),
           },
           {
-<<<<<<< HEAD
-            path: 'studetail',
-            name: 'studetail',
-            // component: () => import('/@/views/index/user/stu-detail.vue'),
-          },
-          {
-=======
->>>>>>> b83135cbb5c87fc2402aedd3177516cb562c85b5
             path: 'wishThingView',
             name: 'wishThingView',
             component: () => import('/@/views/index/user/wish-thing-view.vue'),

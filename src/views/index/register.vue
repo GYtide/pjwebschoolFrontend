@@ -1,10 +1,9 @@
 <template>
   <div class="container">
-
     <div class="tel-regist-page pc-style">
       <div class="regist-title">
         <span>注册新账号</span>
-        <span @click="router.push({name:'login'})" class="toWxLogin">我要登录</span>
+        <span @click="router.push({ name: 'login' })" class="toWxLogin">我要登录</span>
       </div>
 
       <div class="regist-padding">
@@ -47,8 +46,8 @@
 </template>
 
 <script setup lang="ts">
-import {userRegisterApi} from '/@/api/user'
-import {message} from "ant-design-vue";
+import { userRegisterApi } from '/@/api/user'
+import { message } from "ant-design-vue";
 import MailIcon from '/@/assets/images/mail-icon.svg';
 import PwdIcon from '/@/assets/images/pwd-icon.svg';
 
@@ -64,9 +63,9 @@ const tData = reactive({
 
 const handleRegister = () => {
   console.log('login')
-  if(tData.loginForm.username === ''
+  if (tData.loginForm.username === ''
     || tData.loginForm.password === ''
-    || tData.loginForm.repassword === ''){
+    || tData.loginForm.repassword === '') {
     message.warn('不能为空！')
     return;
   }
@@ -77,7 +76,7 @@ const handleRegister = () => {
     rePassword: tData.loginForm.repassword
   }).then(res => {
     message.success('注册成功！')
-    router.push({name: 'login'})
+    router.push({ name: 'login' })
   }).catch(err => {
     message.error(err.msg || '注册失败')
   })
@@ -91,11 +90,16 @@ div {
   display: block;
 }
 
-*, :after, :before, img {
+*,
+:after,
+:before,
+img {
   border-style: none;
 }
 
-*, :after, :before {
+*,
+:after,
+:before {
   border-width: 0;
   border-color: #dae1e7;
 }
@@ -108,9 +112,9 @@ div {
   object-fit: cover;
   height: 100vh;
   overflow: hidden;
-  display:flex;
+  display: flex;
   justify-content: center;
-  align-items:center;
+  align-items: center;
 }
 
 .pc-style {
@@ -205,6 +209,4 @@ div {
   width: 100%;
   outline: none;
   cursor: pointer;
-}
-
-</style>
+}</style>
