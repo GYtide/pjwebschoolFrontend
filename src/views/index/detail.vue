@@ -22,7 +22,7 @@
                 </span>
                 <div class="translators flex-view" style="">
                   <span>科目：</span>
-                  <span class="name">{{ detailData.classification_title }}</span>
+                  <span class="name">{{ classification_title }}</span>
                 </div>
                 <div class="translators flex-view" style="">
                   <span>性别：</span>
@@ -41,9 +41,9 @@
                     <img :src="AddIcon" />
                     <span>立即联系</span>
                   </button>
-                  <button class="buy-btn" @click="handleOrder(detailData)">
-                    <img :src="AddIcon" />
-                    <span>下单</span>
+                  <button class="buy-btn" @click="createOrder">
+                    <img :src="AvatarIcon">
+                    <span>现在下单</span>
                   </button>
                 </div>
               </div>
@@ -212,6 +212,7 @@ let detailData = ref({})
 let tabUnderLeft = ref(6)
 let tabData = ref(['简介', '评论'])
 let selectTabIndex = ref(0)
+let classification_title = ref('')
 
 let commentData = ref([])
 let recommendData = ref([])
@@ -236,10 +237,27 @@ const getThingDetail =()=> {
   detailApi({id: thingId.value}).then(res => {
     detailData.value = res.data
     detailData.value.cover = BASE_URL + '/api/staticfiles/image/' + detailData.value.cover
+    if(detailData.classificationId == "1"){
+      classification_title = "小学"
+    } else if(detailData.value.classificationId == "2"){
+      classification_title = "初中"
+    } else if(detailData.value.classificationId == "3"){
+      classification_title = "高中"
+    }
+    console.log(detailData.value.classificationId)
+    console.log(classification_title)
+    console.log(detailData)
   }).catch(err => {
     message.error('获取详情失败')
   })
 }
+
+const createOrder =()=> {
+  // 跳转新页面
+  let text = router.resolve({name: 'pay', query: {id: thingId.value}})
+  window.open(text.href, '_blank')
+}
+
 const addToWish =()=> {
   let userId = userStore.user_id
   if (userId) {
@@ -294,7 +312,7 @@ const getRecommendThing =()=> {
       }
     })
     console.log(res)
-    recommendData.value = res.data.slice(0, 6)
+    recommendData.value = res.data.slice(0, 4)
   }).catch(err => {
     console.log(err)
   })
