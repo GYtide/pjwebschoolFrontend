@@ -3,14 +3,15 @@ import { loginApi as adminLogin, userLoginApi } from '/@/api/user';
 import { sendApi, verifyApi } from '/@/api/mail';
 import { setToken, clearToken } from '/@/utils/auth';
 import { UserState } from './types';
-import { USER_ID, USER_NAME, USER_TOKEN, ADMIN_USER_ID, ADMIN_USER_NAME, ADMIN_USER_TOKEN } from '/@/store/constants';
+import { USER_ID, USER_NAME, USER_ROLE, USER_TOKEN, ADMIN_USER_ID, ADMIN_USER_NAME, ADMIN_USER_TOKEN } from '/@/store/constants';
 
 export const useUserStore = defineStore('user', {
   state: (): UserState => ({
     user_id: undefined,
     user_name: undefined,
     user_token: undefined,
-    
+    user_role: undefined,
+
     admin_user_id: undefined,
     admin_user_name: undefined,
     admin_user_token: undefined,
@@ -42,6 +43,7 @@ export const useUserStore = defineStore('user', {
         localStorage.setItem(USER_TOKEN, result.data.token);
         localStorage.setItem(USER_NAME, result.data.username);
         localStorage.setItem(USER_ID, result.data.id);
+        localStorage.setItem(USER_ROLE, result.data.role)
       }
 
       return result;
@@ -57,12 +59,14 @@ export const useUserStore = defineStore('user', {
           state.user_id = result.data.id;
           state.user_name = result.data.username;
           state.user_token = result.data.token;
+          state.user_role = result.data.role;
           console.log('state==>', state);
         });
 
         localStorage.setItem(USER_TOKEN, result.data.token);
         localStorage.setItem(USER_NAME, result.data.username);
         localStorage.setItem(USER_ID, result.data.id);
+        localStorage.setItem(USER_ROLE, result.data.role)
       }
 
       return result;
@@ -74,10 +78,12 @@ export const useUserStore = defineStore('user', {
         localStorage.removeItem(USER_ID);
         localStorage.removeItem(USER_NAME);
         localStorage.removeItem(USER_TOKEN);
+        localStorage.removeItem(USER_ROLE);
 
         state.user_id = undefined;
         state.user_name = undefined;
         state.user_token = undefined;
+        state.user_role = undefined;
       });
     },
 

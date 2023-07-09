@@ -10,36 +10,12 @@
           </div>
         </div>
       </div>
-      <div class="counts-view">
-        <div class="counts flex-view">
-          <div class="fans-box flex-item" @click="clickMenu('collectThingView')">
-            <div class="text">收藏</div>
-            <div class="num">{{collectCount}}</div>
-          </div>
-          <div class="split-line">
-          </div>
-          <div class="follow-box flex-item" @click="clickMenu('wishThingView')">
-            <div class="text">心愿单</div>
-            <div class="num">{{wishCount}}</div>
-          </div>
-  <!--        <div class="split-line">-->
-  <!--        </div>-->
-  <!--        <div class="points-box flex-item">-->
-  <!--          <div class="text">积分</div>-->
-  <!--          <div class="num">0</div>-->
-  <!--        </div>-->
-        </div>
-      </div>
       <div class="setting-box">
         <div class="title">个人设置</div>
         <div class="list">
           <div class="mine-item flex-view" @click="clickMenu('jiajiaoEditView')">
             <img :src="SettingIconImage" alt="编辑资料">
             <span>家教资料</span>
-          </div>
-          <div class="mine-item flex-view" @click="clickMenu('userInfoEditView')">
-            <img :src="SettingIconImage" alt="编辑资料">
-            <span>编辑资料</span>
           </div>
           <div class="mine-item flex-view" @click="clickMenu('securityView')">
             <img :src="SafeIconImage" alt="账号安全">

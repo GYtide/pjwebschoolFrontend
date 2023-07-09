@@ -8,7 +8,7 @@
       <input placeholder="输入关键词" ref="keywordRef" @keyup.enter="search" />
     </div>
     <div class="right-view">
-      <a-button type="link" @click="handleJoin()">家教入驻</a-button>
+      <a-button v-if="userStore.user_role != '5'" type="link" @click="handleJoin()">家教入驻</a-button>
       <template v-if="userStore.user_token">
         <a-dropdown>
           <a class="ant-dropdown-link" @click="e => e.preventDefault()">
@@ -17,7 +17,7 @@
           <template #overlay>
             <a-menu>
               <a-menu-item>
-                <a @click="goUserCenter('userInfoEditView')">个人中心</a>
+                <a @click="goUserCenter()">个人中心</a>
               </a-menu-item>
               <a-menu-item>
                 <a @click="quit()">退出</a>
@@ -113,8 +113,13 @@ const goLogin = () => {
   router.push({ name: 'login' })
 }
 
-const goUserCenter = (menuName) => {
-  router.push({ name: menuName })
+const goUserCenter = () => {
+  console.log(userStore.user_role)
+  if(userStore.user_role === '1' || userStore.user_role === '2'){
+    router.push({ name: 'userInfoEditView' })
+  }else if(userStore.user_role === '5'){
+    router.push({ name: 'jiajiaoOrderView'})
+  }
 }
 const quit = () => {
   userStore.logout().then(res => {

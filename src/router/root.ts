@@ -101,14 +101,8 @@ const constantRouterMap = [
       {
         path: 'usercenter',
         name: 'usercenter',
-        redirect: '/index/usercenter/addressView',
         component: () => import('/@/views/index/usercenter.vue'),
         children: [
-          {
-            path: 'addressView',
-            name: 'addressView',
-            component: () => import('/@/views/index/user/address-view.vue'),
-          },
           {
             path: 'wishThingView',
             name: 'wishThingView',
@@ -120,14 +114,9 @@ const constantRouterMap = [
             component: () => import('/@/views/index/user/collect-thing-view.vue'),
           },
           {
-            path: 'jiajiaoEditView',
-            name: 'jiajiaoEditView',
-            component: () => import('/@/views/index/user/jiajiao-edit-view.vue'),
-          },
-          {
-            path: 'jiajiaoOrderView',
-            name: 'jiajiaoOrderView',
-            component: () => import('/@/views/index/user/jiajiao-order-view.vue'),
+            path: 'userOrderView',
+            name: 'userOrderView',
+            component: () => import('/@/views/index/user/user-order-view.vue'),
           },
           {
             path: 'userInfoEditView',
