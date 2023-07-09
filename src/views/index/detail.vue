@@ -235,11 +235,11 @@ const getThingDetail = () => {
   detailApi({ id: thingId.value }).then(res => {
     detailData.value = res.data
     detailData.value.cover = BASE_URL + '/api/staticfiles/image/' + detailData.value.cover
-    if(detailData.classificationId == "1"){
+    if (detailData.classificationId == "1") {
       classification_title = "小学"
-    } else if(detailData.value.classificationId == "2"){
+    } else if (detailData.value.classificationId == "2") {
       classification_title = "初中"
-    } else if(detailData.value.classificationId == "3"){
+    } else if (detailData.value.classificationId == "3") {
       classification_title = "高中"
     }
     console.log(detailData.value.classificationId)
@@ -250,9 +250,9 @@ const getThingDetail = () => {
   })
 }
 
-const createOrder =()=> {
+const createOrder = () => {
   // 跳转新页面
-  let text = router.resolve({name: 'pay', query: {id: thingId.value}})
+  let text = router.resolve({ name: 'pay', query: { id: thingId.value } })
   window.open(text.href, '_blank')
 }
 

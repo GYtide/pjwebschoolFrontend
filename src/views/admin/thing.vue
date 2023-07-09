@@ -9,23 +9,15 @@
           <a-input-search addon-before="名称" enter-button @search="onSearch" @change="onSearchChange" />
         </a-space>
       </div>
-      <a-table
-          size="middle"
-          rowKey="id"
-          :loading="data.loading"
-          :columns="columns"
-          :data-source="data.dataList"
-          :scroll="{ x: 'max-content' }"
-          :row-selection="rowSelection"
-          :pagination="{
+      <a-table size="middle" rowKey="id" :loading="data.loading" :columns="columns" :data-source="data.dataList"
+        :scroll="{ x: 'max-content' }" :row-selection="rowSelection" :pagination="{
           size: 'default',
           current: data.page,
           pageSize: data.pageSize,
           onChange: (current) => (data.page = current),
           showSizeChanger: false,
           showTotal: (total) => `共${total}条数据`,
-        }"
-      >
+        }">
         <template #bodyCell="{ text, record, index, column }">
           <template v-if="column.key === 'operation'">
             <span>
@@ -42,16 +34,8 @@
 
     <!--弹窗区域-->
     <div>
-      <a-modal
-          :visible="modal.visile"
-          :forceRender="true"
-          :title="modal.title"
-          width="880px"
-          ok-text="确认"
-          cancel-text="取消"
-          @cancel="handleCancel"
-          @ok="handleOk"
-      >
+      <a-modal :visible="modal.visile" :forceRender="true" :title="modal.title" width="880px" ok-text="确认"
+        cancel-text="取消" @cancel="handleCancel" @ok="handleOk">
         <div>
           <a-form ref="myform" :label-col="{ style: { width: '80px' } }" :model="modal.form" :rules="modal.rules">
             <a-row :gutter="24">
@@ -62,11 +46,8 @@
               </a-col>
               <a-col span="12">
                 <a-form-item label="分类" name="classificationId">
-                  <a-select placeholder="请选择"
-                            allowClear
-                            :options="modal.cData"
-                            :field-names="{ label: 'title', value: 'id',}"
-                            v-model:value="modal.form.classificationId">
+                  <a-select placeholder="请选择" allowClear :options="modal.cData"
+                    :field-names="{ label: 'title', value: 'id', }" v-model:value="modal.form.classificationId">
                   </a-select>
                 </a-form-item>
               </a-col>
@@ -74,23 +55,18 @@
                 <a-form-item label="标签">
                   <a-select mode="multiple" placeholder="请选择" allowClear v-model:value="modal.form.tags">
                     <template v-for="item in modal.tagData">
-                      <a-select-option :value="item.id">{{item.title}}</a-select-option>
+                      <a-select-option :value="item.id">{{ item.title }}</a-select-option>
                     </template>
                   </a-select>
                 </a-form-item>
               </a-col>
               <a-col span="24">
                 <a-form-item label="封面">
-                  <a-upload-dragger
-                      name="file"
-                      accept="image/*"
-                      :multiple="false"
-                      :before-upload="beforeUpload"
-                      v-model:file-list="fileList"
-                  >
+                  <a-upload-dragger name="file" accept="image/*" :multiple="false" :before-upload="beforeUpload"
+                    v-model:file-list="fileList">
                     <p class="ant-upload-drag-icon">
                       <template v-if="modal.form.coverUrl">
-                        <img :src="modal.form.coverUrl"  style="width: 60px;height: 80px;"/>
+                        <img :src="modal.form.coverUrl" style="width: 60px;height: 80px;" />
                       </template>
                       <template v-else>
                         <file-image-outlined />
@@ -110,27 +86,30 @@
               </a-col>
               <a-col span="12">
                 <a-form-item label="小时价格" name="price">
-                  <a-input-number  placeholder="请输入" :min="0" v-model:value="modal.form.price" style="width: 100%;"></a-input-number>
+                  <a-input-number placeholder="请输入" :min="0" v-model:value="modal.form.price"
+                    style="width: 100%;">"元/时"</a-input-number>
                 </a-form-item>
               </a-col>
               <a-col span="12">
-                <a-form-item label="手机号" >
-                  <a-input-number  placeholder="请输入" :min="0" v-model:value="modal.form.mobile" style="width: 100%;"></a-input-number>
+                <a-form-item label="手机号">
+                  <a-input-number placeholder="请输入" :min="0" v-model:value="modal.form.mobile"
+                    style="width: 100%;"></a-input-number>
                 </a-form-item>
               </a-col>
               <a-col span="12">
-                <a-form-item label="年龄" >
-                  <a-input-number  placeholder="请输入" :min="0" v-model:value="modal.form.age" style="width: 100%;"></a-input-number>
+                <a-form-item label="年龄">
+                  <a-input-number placeholder="请输入" :min="0" v-model:value="modal.form.age"
+                    style="width: 100%;"></a-input-number>
                 </a-form-item>
               </a-col>
               <a-col span="12">
                 <a-form-item label="性别">
-                  <a-input  placeholder="请输入" v-model:value="modal.form.sex" style="width: 100%;"></a-input>
+                  <a-input placeholder="请输入" v-model:value="modal.form.sex" style="width: 100%;"></a-input>
                 </a-form-item>
               </a-col>
               <a-col span="12">
                 <a-form-item label="所在地区">
-                  <a-input  placeholder="请输入" v-model:value="modal.form.location" style="width: 100%;"></a-input>
+                  <a-input placeholder="请输入" v-model:value="modal.form.location" style="width: 100%;"></a-input>
                 </a-form-item>
               </a-col>
               <a-col span="12">
@@ -152,10 +131,11 @@
 <script setup lang="ts">
 import { FormInstance, message, SelectProps } from 'ant-design-vue';
 import { createApi, listApi, updateApi, deleteApi } from '/@/api/thing';
-import {listApi as listClassificationApi} from '/@/api/classification'
-import {listApi as listTagApi} from '/@/api/tag'
-import {BASE_URL} from "/@/store/constants";
+import { listApi as listClassificationApi } from '/@/api/classification'
+import { listApi as listTagApi } from '/@/api/tag'
+import { BASE_URL } from "/@/store/constants";
 import { FileImageOutlined } from '@ant-design/icons-vue';
+import { tr } from 'element-plus/es/locale';
 
 const columns = reactive([
 
@@ -255,7 +235,8 @@ const modal = reactive({
     status: undefined,
     cover: undefined,
     coverUrl: undefined,
-    imageFile: undefined
+    imageFile: undefined,
+    description: undefined
   },
   rules: {
     title: [{ required: true, message: '请输入名称', trigger: 'change' }],
@@ -278,19 +259,19 @@ const getDataList = () => {
   listApi({
     keyword: data.keyword,
   })
-      .then((res) => {
-        data.loading = false;
-        console.log(res);
-        res.data.forEach((item: any, index: any) => {
-          item.index = index + 1;
-          item.price = item.price + "元/时"
-        });
-        data.dataList = res.data;
-      })
-      .catch((err) => {
-        data.loading = false;
-        console.log(err);
+    .then((res) => {
+      data.loading = false;
+      console.log(res);
+      res.data.forEach((item: any, index: any) => {
+        item.index = index + 1;
+        item.price = item.price
       });
+      data.dataList = res.data;
+    })
+    .catch((err) => {
+      data.loading = false;
+      console.log(err);
+    });
 }
 
 const getCDataList = () => {
@@ -298,7 +279,7 @@ const getCDataList = () => {
     modal.cData = res.data
   })
 }
-const getTagDataList = ()=> {
+const getTagDataList = () => {
   listTagApi({}).then(res => {
     res.data.forEach((item, index) => {
       item.index = index + 1
@@ -344,11 +325,11 @@ const handleEdit = (record: any) => {
     modal.form[key] = undefined;
   }
   for (const key in record) {
-    if(record[key]) {
+    if (record[key]) {
       modal.form[key] = record[key];
     }
   }
-  if(modal.form.cover) {
+  if (modal.form.cover) {
     modal.form.coverUrl = BASE_URL + '/api/staticfiles/image/' + modal.form.cover
     modal.form.cover = undefined
   }
@@ -357,12 +338,12 @@ const handleEdit = (record: any) => {
 const confirmDelete = (record: any) => {
   console.log('delete', record);
   deleteApi({ ids: record.id })
-      .then((res) => {
-        getDataList();
-      })
-      .catch((err) => {
-        message.error(err.msg || '操作失败');
-      });
+    .then((res) => {
+      getDataList();
+    })
+    .catch((err) => {
+      message.error(err.msg || '操作失败');
+    });
 };
 
 const handleBatchDelete = () => {
@@ -373,83 +354,84 @@ const handleBatchDelete = () => {
     return;
   }
   deleteApi({ ids: data.selectedRowKeys.join(',') })
-      .then((res) => {
-        message.success('删除成功');
-        data.selectedRowKeys = [];
-        getDataList();
-      })
-      .catch((err) => {
-        message.error(err.msg || '操作失败');
-      });
+    .then((res) => {
+      message.success('删除成功');
+      data.selectedRowKeys = [];
+      getDataList();
+    })
+    .catch((err) => {
+      message.error(err.msg || '操作失败');
+    });
 };
 
 const handleOk = () => {
   myform.value
-      ?.validate()
-      .then(() => {
-        const formData = new FormData();
-        if(modal.editFlag) {
-          formData.append('id', modal.form.id)
-        }
-        formData.append('title', modal.form.title)
-        if (modal.form.classificationId) {
-          formData.append('classificationId', modal.form.classificationId)
-        }
-        if (modal.form.tags) {
-          modal.form.tags.forEach(function (value) {
-            if(value){
-              formData.append('tags[]', value)
-            }
+    ?.validate()
+    .then(() => {
+      const formData = new FormData();
+      if (modal.editFlag) {
+        formData.append('id', modal.form.id)
+      }
+      formData.append('title', modal.form.title)
+      if (modal.form.classificationId) {
+        formData.append('classificationId', modal.form.classificationId)
+      }
+      if (modal.form.tags) {
+        modal.form.tags.forEach(function (value) {
+          if (value) {
+            formData.append('tags[]', value)
+          }
+        })
+      }
+      if (modal.form.imageFile) {
+        console.log("imageFile", modal.form.imageFile)
+        formData.append('imageFile', modal.form.imageFile)
+      }
+      formData.append('description', modal.form.description || '')
+      formData.append('price', modal.form.price || '')
+      if (modal.form.mobile) {
+        formData.append('mobile', modal.form.mobile)
+      }
+      if (modal.form.age) {
+        formData.append('age', modal.form.age)
+      }
+      if (modal.form.sex) {
+        formData.append('sex', modal.form.sex)
+      }
+      if (modal.form.location) {
+        formData.append('location', modal.form.location)
+      }
+      if (modal.form.description) {
+        formData.append('description', modal.form.description)
+      }
+      if (modal.form.status) {
+        formData.append('status', modal.form.status)
+      }
+      if (modal.editFlag) {
+        updateApi(formData)
+          .then((res) => {
+            hideModal();
+            getDataList();
           })
-        }
-        if (modal.form.imageFile) {
-          formData.append('imageFile', modal.form.imageFile)
-        }
-        formData.append('description', modal.form.description || '')
-        formData.append('price', modal.form.price || '')
-        if (modal.form.mobile) {
-          formData.append('mobile', modal.form.mobile)
-        }
-        if (modal.form.age) {
-          formData.append('age', modal.form.age)
-        }
-        if (modal.form.sex) {
-          formData.append('sex', modal.form.sex)
-        }
-        if (modal.form.location) {
-          formData.append('location', modal.form.location)
-        }
-        if (modal.form.description) {
-          formData.append('description', modal.form.description)
-        }
-        if (modal.form.status) {
-          formData.append('status', modal.form.status)
-        }
-        if (modal.editFlag) {
-          updateApi(formData)
-              .then((res) => {
-                hideModal();
-                getDataList();
-              })
-              .catch((err) => {
-                console.log(err);
-                message.error(err.msg || '操作失败');
-              });
-        } else {
-          createApi(formData)
-              .then((res) => {
-                hideModal();
-                getDataList();
-              })
-              .catch((err) => {
-                console.log(err);
-                message.error(err.msg || '操作失败');
-              });
-        }
-      })
-      .catch((err) => {
-        console.log('不能为空');
-      });
+          .catch((err) => {
+            console.log(err);
+            message.error(err.msg || '操作失败');
+          });
+      } else {
+        createApi(formData)
+          .then((res) => {
+            hideModal();
+            getDataList();
+          })
+          .catch((err) => {
+            console.log(err);
+            message.error(err.msg || '操作失败');
+          });
+      }
+    })
+    .catch((err) => {
+      console.log('不能为空');
+    });
 };
 
 const handleCancel = () => {
@@ -482,7 +464,7 @@ const hideModal = () => {
   text-align: right;
 }
 
-.table-operations > button {
+.table-operations>button {
   margin-right: 8px;
 }
 </style>

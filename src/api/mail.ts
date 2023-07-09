@@ -4,6 +4,7 @@ import { UserState } from '/@/store/modules/user/types';
 enum URL {
   send = '/api/mail/send',
   verify = '/api/mail/verify',
+  registerMail = '/api/mail/sendForRegister',
 }
 interface LoginRes {
   token: string;
@@ -11,6 +12,7 @@ interface LoginRes {
 
 export interface mailData {
   usermail: string;
+  sendtype:string;
 }
 
 export interface captchaVerify {

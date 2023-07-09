@@ -10,7 +10,7 @@ export const useUserStore = defineStore('user', {
     user_id: undefined,
     user_name: undefined,
     user_token: undefined,
-
+    
     admin_user_id: undefined,
     admin_user_name: undefined,
     admin_user_token: undefined,
@@ -25,7 +25,7 @@ export const useUserStore = defineStore('user', {
       return result;
     },
 
-    // 验证码验证
+    // 验证码验证登录
     async verifycaptcha(usercaptcha) {
       const result = await verifyApi(usercaptcha);
       console.log('result==>', result);
@@ -35,6 +35,7 @@ export const useUserStore = defineStore('user', {
           state.user_id = result.data.id;
           state.user_name = result.data.username;
           state.user_token = result.data.token;
+          state.user_role = result.data.role;
           console.log('state==>', state);
         });
 
