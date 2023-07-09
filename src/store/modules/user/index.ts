@@ -10,7 +10,7 @@ export const useUserStore = defineStore('user', {
     user_id: undefined,
     user_name: undefined,
     user_token: undefined,
-    user_role: undefined,
+    
     admin_user_id: undefined,
     admin_user_name: undefined,
     admin_user_token: undefined,
