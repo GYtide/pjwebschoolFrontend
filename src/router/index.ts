@@ -13,7 +13,7 @@ const homeRoutePath = '/index/home';
 const adminLoginRoutePath = '/adminLogin';
 
 const router = createRouter({
-  history: createWebHistory('./'),
+  history: createWebHistory('/'),
   routes: root,
 });
 
@@ -53,7 +53,7 @@ router.beforeEach(async (to, from, next) => {
         next();
       } else {
         // next({ path: loginRoutePath, query: { redirect: to.fullPath } });
-        next({ path: homeRoutePath });
+        next({ path: adminLoginRoutePath });
       }
     }
     // next()

@@ -87,7 +87,7 @@
               <a-col span="12">
                 <a-form-item label="小时价格" name="price">
                   <a-input-number placeholder="请输入" :min="0" v-model:value="modal.form.price"
-                    style="width: 100%;"></a-input-number>
+                    style="width: 100%;">"元/时"</a-input-number>
                 </a-form-item>
               </a-col>
               <a-col span="12">
@@ -198,7 +198,7 @@ const beforeUpload = (file: File) => {
   console.log(copyFile);
   modal.form.imageFile = copyFile;
   return false;
-};n
+}; n
 
 // 文件列表
 const fileList = ref<any[]>([]);
@@ -262,7 +262,7 @@ const getDataList = () => {
       console.log(res);
       res.data.forEach((item: any, index: any) => {
         item.index = index + 1;
-        item.price = item.price + "元/时"
+        item.price = item.price
       });
       data.dataList = res.data;
     })
