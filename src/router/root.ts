@@ -47,6 +47,11 @@ const constantRouterMap = [
         component: () => import('/@/views/index/pay.vue'),
       },
       {
+        path: 'jiajiaoRegister',
+        name: 'jiajiaoRegister',
+        component: () => import('/@/views/index/jiajiaoRegister.vue'),
+      },
+      {
         path: 'jiajiaocenter',
         name: 'jiajiaocenter',
         component: () => import('/@/views/index/jiajiaocenter.vue'),

@@ -132,7 +132,7 @@ const onClose = () => {
 const handleJoin = () => {
   let userId = userStore.user_id;
   if (userId) {
-    router.push({ name: 'jiajiaoEditView' })
+    router.push({ name: 'jiajiaoRegister' })
   } else {
     message.warn("请先登录！");
   }
