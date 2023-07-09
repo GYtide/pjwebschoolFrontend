@@ -8,7 +8,7 @@
       <input placeholder="输入关键词" ref="keywordRef" @keyup.enter="search" />
     </div>
     <div class="right-view">
-      <a-button type="link" @click="handleJoin()">家教入驻</a-button>
+      <a-button v-if="!userStore.user_token" type="link" @click="handleJoin()">家教入驻</a-button>
       <template v-if="userStore.user_token">
         <a-dropdown>
           <a class="ant-dropdown-link" @click="e => e.preventDefault()">

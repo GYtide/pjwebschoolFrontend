@@ -135,6 +135,7 @@ import { listApi as listClassificationApi } from '/@/api/classification'
 import { listApi as listTagApi } from '/@/api/tag'
 import { BASE_URL } from "/@/store/constants";
 import { FileImageOutlined } from '@ant-design/icons-vue';
+import { tr } from 'element-plus/es/locale';
 
 const columns = reactive([
 
@@ -215,7 +216,7 @@ const data = reactive({
 
 // 弹窗数据源
 const modal = reactive({
-  visile: false,
+  visile: true,
   editFlag: false,
   title: '',
   cData: [],
@@ -234,7 +235,8 @@ const modal = reactive({
     status: undefined,
     cover: undefined,
     coverUrl: undefined,
-    imageFile: undefined
+    imageFile: undefined,
+    description: undefined
   },
   rules: {
     title: [{ required: true, message: '请输入名称', trigger: 'change' }],
