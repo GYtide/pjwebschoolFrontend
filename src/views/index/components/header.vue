@@ -25,20 +25,16 @@
             </a-menu>
           </template>
         </a-dropdown>
-        <!--        <div class="right-icon">-->
-        <!--          <img src="@/assets/cart-icon.svg">-->
-        <!--          <span>3</span>-->
-        <!--        </div>-->
       </template>
       <template v-else>
         <button class="login btn hidden-sm" @click="goLogin()">登录</button>
       </template>
 
-      <div class="right-icon" @click="msgVisible = true">
+      <div v-if="userStore.user_token" class="right-icon" @click="msgVisible = true">
         <img :src="MessageIcon">
         <span class="msg-point" style=""></span>
       </div>
-      <div>
+      <div v-if="userStore.user_token">
         <a-drawer title="我的消息" placement="right" :closable="true" :maskClosable="true" :visible="msgVisible"
           @close="onClose">
           <a-spin :spinning="loading" style="min-height: 200px;">
@@ -145,7 +141,7 @@ const handleJoin = () => {
   left: 0;
   height: 56px;
   width: 100%;
-  background: #fff;
+  background: #e2bdbd;
   border-bottom: 1px solid #cedce4;
   padding-left: 48px;
   z-index: 16;
@@ -348,4 +344,5 @@ const handleJoin = () => {
     line-height: 22px;
   }
 
-}</style>
+}
+</style>

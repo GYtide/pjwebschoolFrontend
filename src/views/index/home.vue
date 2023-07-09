@@ -1,20 +1,26 @@
 <template>
-  <Header>
-    <a-carousel class="homepage" autoplay ref="carousel">
-      <div v-for="(item, index) in carouselItems" :key="index" class="carousel-item">
-        <img :src="item.image" class="carousel-image" />
-        <div class="carousel-text">
-          <h2>{{ item.title }}</h2>
-          <p>{{ item.description }}</p>
-        </div>
+  <Header />
+  <a-carousel class="homepage" autoplay ref="carousel">
+    <div v-for="(item, index) in carouselItems" :key="index" class="carousel-item">
+      <img :src="item.image" class="carousel-image" />
+      <div class="carousel-text">
+        <h2>{{ item.title }}</h2>
+        <p>{{ item.description }}</p>
       </div>
-    </a-carousel>
+    </div>
+  </a-carousel>
+  <a-button class="enterBtn" type="primary" @click="handleEnter()" shape="round">开始学习</a-button>
 </template>
 
 <script setup lang="ts">
 import carousel01 from "/@/assets/images/carousel01.jpg"
 import carousel02 from "/@/assets/images/carousel02.jpg"
 import Header from '/@/views/index/components/header.vue'
+const router = useRouter();
+
+const handleEnter = () => {
+  router.push({ name: 'portal' })
+}
 const carouselItems = [
   {
     image: carousel01,
@@ -34,6 +40,18 @@ const carouselItems = [
 .ant-carousel .carousel-item {
   position: relative;
   text-align: center;
+}
+
+.enterBtn {
+  position: absolute;
+  position: fixed;
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 50%;
+  bottom: 0;
+  width: 200px;
+  height: 50px;
 }
 
 .ant-carousel .carousel-image {
