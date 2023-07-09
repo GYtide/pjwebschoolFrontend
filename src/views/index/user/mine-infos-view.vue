@@ -33,10 +33,6 @@
     <div class="setting-box">
       <div class="title">个人设置</div>
       <div class="list">
-        <div class="mine-item flex-view" @click="clickMenu('jiajiaoEditView')">
-          <img :src="SettingIconImage" alt="编辑资料">
-          <span>家教资料</span>
-        </div>
         <div class="mine-item flex-view" @click="clickMenu('userInfoEditView')">
           <img :src="SettingIconImage" alt="编辑资料">
           <span>编辑资料</span>
@@ -45,7 +41,7 @@
           <img :src="SafeIconImage" alt="账号安全">
           <span>账号安全</span>
         </div>
-        <div class="mine-item flex-view" @click="clickMenu('jiajiaoOrderView')">
+        <div class="mine-item flex-view" @click="clickMenu('userOrderView')">
           <img :src="MyOrderImg" alt="订单管理">
           <span>订单管理</span>
         </div>
