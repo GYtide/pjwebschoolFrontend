@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="login-page pc-style">
-        <img :src="LogoIcon" alt="logo" class="logo-icon">
+      <img :src="LogoIcon" alt="logo" class="logo-icon">
       <div class="login-tab">
         <a-radio-group v-model:value="loginMethod" size="large">
           <a-radio-button value="password">密码登录</a-radio-button>
@@ -75,7 +75,7 @@ const pageData = reactive({
     password: ''
   },
   mailForm: {
-    usermail: "gytide@qq.com",
+    usermail: "",
     captcha: "",
   }
 })
@@ -95,13 +95,15 @@ const handleLogin = () => {
 }
 
 const handleEmailSend = () => {
-  userStore.sendcaptcha({ usermail: pageData.mailForm.usermail }).then(
+  userStore.sendcaptcha({ usermail: pageData.mailForm.usermail, sendtype: "login" }).then(
     res => {
       if (res.code == 200) {
         message.warn(res.msg || '发送成功')
       }
     }
-  )
+  ).catch((err => {
+    message.warn(err.msg || '发送失败')
+  }))
 }
 
 const handleEmailLogin = () => {

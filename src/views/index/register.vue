@@ -5,35 +5,54 @@
         <span>注册新账号</span>
         <span @click="router.push({ name: 'login' })" class="toWxLogin">我要登录</span>
       </div>
+      <div class="regist-padding">
+        <div class="common-input">
+          <img :src="UserIcon" class="left-icon">
+          <div class="input-view">
+            <input placeholder="请输入用户名" v-model="tData.registerForm.username" type="text" class="input">
+            <p class="err-view">
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="regist-padding">
+        <div class="common-input">
+          <img :src="PwdIcon" class="left-icon">
+          <div class="input-view">
+            <input placeholder="请输入密码" v-model="tData.registerForm.password" type="password" class="input">
+            <p class="err-view">
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="regist-padding">
+        <div class="common-input">
+          <img :src="PwdIcon" class="left-icon">
+          <div class="input-view">
+            <input placeholder="请再次输入密码" v-model="tData.registerForm.repassword" type="password" class="input">
+            <p class="err-view">
+            </p>
+          </div>
+        </div>
+      </div>
 
       <div class="regist-padding">
         <div class="common-input">
           <img :src="MailIcon" class="left-icon">
           <div class="input-view">
-            <input placeholder="请输入邮箱" v-model="tData.loginForm.username" type="text" class="input">
+            <input placeholder="请输入邮箱" v-model="tData.registerForm.usermail" type="text" class="input">
             <p class="err-view">
             </p>
           </div>
         </div>
       </div>
       <div class="regist-padding">
+        <!-- <a-divider style="height: 2px; background-color: #7c7878" /> -->
         <div class="common-input">
-          <img :src="PwdIcon" class="left-icon">
-          <div class="input-view">
-            <input placeholder="请输入密码" v-model="tData.loginForm.password" type="password" class="input">
-            <p class="err-view">
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="regist-padding">
-        <div class="common-input">
-          <img :src="PwdIcon" class="left-icon">
-          <div class="input-view">
-            <input placeholder="请再次输入密码" v-model="tData.loginForm.repassword" type="password" class="input">
-            <p class="err-view">
-            </p>
-          </div>
+          <img :src="PwdIcon" class="left-icon" />
+          <a-input-search v-model:value="tData.registerForm.captcha" placeholder="请输入验证码" size="middle"
+            enter-button="发送验证码" @search="handleEmailSend">
+          </a-input-search>
         </div>
       </div>
       <div class="tel-login">
@@ -50,37 +69,61 @@ import { userRegisterApi } from '/@/api/user'
 import { message } from "ant-design-vue";
 import MailIcon from '/@/assets/images/mail-icon.svg';
 import PwdIcon from '/@/assets/images/pwd-icon.svg';
+import { useUserStore } from '/@/store'
+import UserIcon from '/@/assets/images/user.svg'
 
 const router = useRouter();
+const userStore = useUserStore();
 
 const tData = reactive({
-  loginForm: {
+  registerForm: {
     username: '',
+    usermail: '',
+    captcha: '',
     password: '',
     repassword: ''
   }
 })
 
-const handleRegister = () => {
-  console.log('login')
-  if (tData.loginForm.username === ''
-    || tData.loginForm.password === ''
-    || tData.loginForm.repassword === '') {
+const handleRegister = async () => {
+  if (tData.registerForm.username === ''
+    || tData.registerForm.password === ''
+    || tData.registerForm.repassword === ''
+    || tData.registerForm.usermail === ''
+    || tData.registerForm.captcha === '') {
     message.warn('不能为空！')
     return;
   }
-
-  userRegisterApi({
-    username: tData.loginForm.username,
-    password: tData.loginForm.password,
-    rePassword: tData.loginForm.repassword
-  }).then(res => {
-    message.success('注册成功！')
-    router.push({ name: 'login' })
-  }).catch(err => {
-    message.error(err.msg || '注册失败')
-  })
+  else {
+    userRegister()
+  }
 }
+
+const handleEmailSend = async () => {
+  userStore.sendcaptcha({ usermail: tData.registerForm.usermail, sendtype: "register" }).then(
+    res => {
+      if (res.code == 200) {
+        message.warn(res.msg || '发送成功')
+      }
+    }).catch((err => {
+      message.warn(err.msg || '发送失败')
+    }))
+}
+
+// 注册
+const userRegister = () => userRegisterApi({
+  username: tData.registerForm.username,
+  password: tData.registerForm.password,
+  rePassword: tData.registerForm.repassword,
+  captcha: tData.registerForm.captcha,
+  email: tData.registerForm.usermail
+}).then(res => {
+  message.success('注册成功！')
+  router.push({ name: 'login' })
+}).catch(err => {
+  message.error(err.msg || '注册失败')
+})
+
 
 
 </script>
@@ -120,7 +163,7 @@ img {
 .pc-style {
   position: relative;
   width: 400px;
-  height: 464px;
+  height: 500px;
   background: #fff;
   -webkit-box-shadow: 2px 2px 6px #aaa;
   box-shadow: 2px 2px 6px #aaa;
@@ -194,7 +237,7 @@ img {
 }
 
 .tel-login {
-  padding: 0 28px;
+  padding: 25px 28px;
 }
 
 .next-btn {
@@ -209,4 +252,5 @@ img {
   width: 100%;
   outline: none;
   cursor: pointer;
-}</style>
+}
+</style>

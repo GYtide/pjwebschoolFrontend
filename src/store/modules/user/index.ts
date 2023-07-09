@@ -25,7 +25,7 @@ export const useUserStore = defineStore('user', {
       return result;
     },
 
-    // 验证码验证
+    // 验证码验证登录
     async verifycaptcha(usercaptcha) {
       const result = await verifyApi(usercaptcha);
       console.log('result==>', result);
