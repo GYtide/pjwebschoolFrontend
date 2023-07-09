@@ -8,7 +8,7 @@ const constantRouterMap = [
   {
     path: '/index',
     name: 'index',
-    redirect: '/index/home',
+    redirect: '/index/login',
     component: () => import('/@/views/index/index.vue'),
     children: [
       {

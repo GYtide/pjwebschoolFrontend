@@ -199,7 +199,7 @@ const beforeUpload = (file: File) => {
   console.log(copyFile);
   modal.form.imageFile = copyFile;
   return false;
-}; n
+};
 
 // 文件列表
 const fileList = ref<any[]>([]);
@@ -216,7 +216,7 @@ const data = reactive({
 
 // 弹窗数据源
 const modal = reactive({
-  visile: true,
+  visile: false,
   editFlag: false,
   title: '',
   cData: [],
