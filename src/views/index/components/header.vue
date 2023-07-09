@@ -1,7 +1,7 @@
 <template>
   <div class="main-bar-view">
     <div class="logo">
-      <img :src="logoImage" class="search-icon" @click="$router.push({name:'portal'})">
+      <img :src="logoImage" class="search-icon" @click="$router.push({ name: 'portal' })">
     </div>
     <div class="search-entry">
       <img :src="SearchIcon" class="search-icon">
@@ -12,7 +12,7 @@
       <template v-if="userStore.user_token">
         <a-dropdown>
           <a class="ant-dropdown-link" @click="e => e.preventDefault()">
-            <img :src="AvatarIcon" class="self-img" >
+            <img :src="AvatarIcon" class="self-img">
           </a>
           <template #overlay>
             <a-menu>
@@ -34,19 +34,13 @@
         <button class="login btn hidden-sm" @click="goLogin()">登录</button>
       </template>
 
-      <div class="right-icon" @click="msgVisible=true">
+      <div class="right-icon" @click="msgVisible = true">
         <img :src="MessageIcon">
         <span class="msg-point" style=""></span>
       </div>
       <div>
-        <a-drawer
-            title="我的消息"
-            placement="right"
-            :closable="true"
-            :maskClosable="true"
-            :visible="msgVisible"
-            @close="onClose"
-        >
+        <a-drawer title="我的消息" placement="right" :closable="true" :maskClosable="true" :visible="msgVisible"
+          @close="onClose">
           <a-spin :spinning="loading" style="min-height: 200px;">
             <div class="list-content">
               <div class="notification-view">
@@ -55,8 +49,8 @@
                     <!---->
                     <div class="content-box">
                       <div class="header">
-                        <span class="title-txt">{{item.title}}</span>
-                        <br/>
+                        <span class="title-txt">{{ item.title }}</span>
+                        <br />
                         <span class="time">{{ item.create_time }}</span>
                       </div>
                       <div class="head-text">
@@ -77,12 +71,13 @@
 </template>
 
 <script setup lang="ts">
-import {listApi} from '/@/api/notice'
-import {useUserStore} from "/@/store";
+import { listApi } from '/@/api/notice'
+import { useUserStore } from "/@/store";
 import logoImage from '/@/assets/images/logo2.svg';
 import SearchIcon from '/@/assets/images/search-icon.svg';
 import AvatarIcon from '/@/assets/images/avatar.jpg';
 import MessageIcon from '/@/assets/images/message-icon.svg';
+import { message } from "ant-design-vue";
 
 
 const router = useRouter();
@@ -95,11 +90,11 @@ let loading = ref(false)
 let msgVisible = ref(false)
 let msgData = ref([] as any)
 
-onMounted(()=>{
+onMounted(() => {
   getMessageList()
 })
 
-const getMessageList = ()=> {
+const getMessageList = () => {
   loading.value = true
   listApi({}).then(res => {
     msgData.value = res.data
@@ -112,31 +107,31 @@ const getMessageList = ()=> {
 const search = () => {
   const keyword = keywordRef.value.value
   if (route.name === 'search') {
-    router.push({name: 'search', query: {keyword: keyword}})
+    router.push({ name: 'search', query: { keyword: keyword } })
   } else {
-    let text = router.resolve({name: 'search', query: {keyword: keyword}})
+    let text = router.resolve({ name: 'search', query: { keyword: keyword } })
     window.open(text.href, '_blank')
   }
 }
 const goLogin = () => {
-  router.push({name: 'login'})
+  router.push({ name: 'login' })
 }
 
 const goUserCenter = (menuName) => {
-  router.push({name: menuName})
+  router.push({ name: menuName })
 }
-const quit= () => {
+const quit = () => {
   userStore.logout().then(res => {
-    router.push({name: 'portal'})
+    router.push({ name: 'portal' })
   })
 }
 const onClose = () => {
   msgVisible.value = false;
 }
-const handleJoin = ()=>{
+const handleJoin = () => {
   let userId = userStore.user_id;
-  if(userId) {
-    router.push({name: 'jiajiaoEditView'})
+  if (userId) {
+    router.push({ name: 'jiajiaoEditView' })
   } else {
     message.warn("请先登录！");
   }
@@ -157,11 +152,13 @@ const handleJoin = ()=>{
   display: flex;
   flex-direction: row;
   //justify-content: center; /*水平居中*/
-  align-items: center; /*垂直居中*/
+  align-items: center;
+  /*垂直居中*/
 }
 
 .logo {
   margin-right: 24px;
+
   img {
     width: 32px;
     height: 32px;
@@ -184,17 +181,19 @@ const handleJoin = ()=>{
     max-width: 100%;
     height: auto;
   }
+
   .search-icon {
     width: 18px;
     margin: 7px 8px 0 0;
   }
+
   input {
     position: absolute;
-    top:4px;
+    top: 4px;
     width: 85%;
     height: 24px;
     border: 0px;
-    outline:none;
+    outline: none;
     color: #000;
     background: #ecf3fc;
     font-size: 14px;
@@ -203,25 +202,29 @@ const handleJoin = ()=>{
 
 .right-view {
   padding-right: 36px;
-  flex:1;
+  flex: 1;
   display: flex;
   flex-direction: row;
   gap: 20px;
-  justify-content: flex-end; /* 内容右对齐 */
+  justify-content: flex-end;
+  /* 内容右对齐 */
 
   .username {
     height: 32px;
     line-height: 32px;
     text-align: center;
   }
+
   button {
     outline: none;
     border: none;
     cursor: pointer;
   }
+
   img {
     cursor: pointer;
   }
+
   .right-icon {
     position: relative;
     width: 24px;
@@ -229,6 +232,7 @@ const handleJoin = ()=>{
     cursor: pointer;
     display: inline-block;
     font-size: 0;
+
     span {
       position: absolute;
       right: -15px;
@@ -244,6 +248,7 @@ const handleJoin = ()=>{
       min-width: 20px;
       text-align: center;
     }
+
     .msg-point {
       position: absolute;
       right: -4px;
@@ -263,6 +268,7 @@ const handleJoin = ()=>{
     vertical-align: middle;
     cursor: pointer;
   }
+
   .btn {
     background: #4684e2;
     font-size: 14px;
@@ -342,6 +348,4 @@ const handleJoin = ()=>{
     line-height: 22px;
   }
 
-}
-
-</style>
+}</style>
