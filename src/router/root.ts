@@ -42,6 +42,53 @@ const constantRouterMap = [
         component: () => import('/@/views/index/pay.vue'),
       },
       {
+        path: 'jiajiaocenter',
+        name: 'jiajiaocenter',
+        component: () => import('/@/views/index/jiajiaocenter.vue'),
+        children: [
+          {
+            path: 'jiajiaoEditView',
+            name: 'jiajiaoEditView',
+            component: () => import('/@/views/index/user/jiajiao-edit-view.vue'),
+          },
+          {
+            path: 'jiajiaoOrderView',
+            name: 'jiajiaoOrderView',
+            component: () => import('/@/views/index/user/jiajiao-order-view.vue'),
+          },
+          {
+            path: 'userInfoEditView',
+            name: 'userInfoEditView',
+            component: () => import('/@/views/index/user/userinfo-edit-view.vue'),
+          },
+          {
+            path: 'followView',
+            name: 'followView',
+            component: () => import('/@/views/index/user/follow-view.vue'),
+          },
+          {
+            path: 'commentView',
+            name: 'commentView',
+            component: () => import('/@/views/index/user/comment-view.vue'),
+          },
+          {
+            path: 'securityView',
+            name: 'securityView',
+            component: () => import('/@/views/index/user/security-view.vue'),
+          },
+          {
+            path: 'pushView',
+            name: 'pushView',
+            component: () => import('/@/views/index/user/push-view.vue'),
+          },
+          {
+            path: 'messageView',
+            name: 'messageView',
+            component: () => import('/@/views/index/user/message-view.vue'),
+          },
+        ],
+      },
+      {
         path: 'search',
         name: 'search',
         component: () => import('/@/views/index/search.vue'),
@@ -58,14 +105,6 @@ const constantRouterMap = [
             component: () => import('/@/views/index/user/address-view.vue'),
           },
           {
-<<<<<<< HEAD
-            path: 'studetail',
-            name: 'studetail',
-            // component: () => import('/@/views/index/user/stu-detail.vue'),
-          },
-          {
-=======
->>>>>>> b83135cbb5c87fc2402aedd3177516cb562c85b5
             path: 'wishThingView',
             name: 'wishThingView',
             component: () => import('/@/views/index/user/wish-thing-view.vue'),

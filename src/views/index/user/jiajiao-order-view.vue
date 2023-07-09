@@ -27,7 +27,7 @@
       >
         <template #bodyCell="{ text, record, index, column }">
           <template v-if="column.key === 'status'">
-            <a-tag :color="text === '1'? '#2db7f5':'#87d068'">
+            <a-tag :color="text === '2'? '#2db7f5':'#87d068'">
               {{text === '2'? '已支付':'已取消'}}
             </a-tag>
           </template>

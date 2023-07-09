@@ -249,7 +249,6 @@ const getThingDetail = () => {
     message.error('获取详情失败')
   })
 }
-<<<<<<< HEAD
 
 const createOrder =()=> {
   // 跳转新页面
@@ -257,10 +256,7 @@ const createOrder =()=> {
   window.open(text.href, '_blank')
 }
 
-const addToWish =()=> {
-=======
 const addToWish = () => {
->>>>>>> f435a25270d5a852a29b0637b4256ce44c0b692b
   let userId = userStore.user_id
   if (userId) {
     wishApi({ thingId: thingId.value, userId: userId }).then(res => {
