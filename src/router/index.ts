@@ -13,7 +13,7 @@ const homeRoutePath = '/index/home';
 const adminLoginRoutePath = '/adminLogin';
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory('./'),
   routes: root,
 });
 

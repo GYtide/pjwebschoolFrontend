@@ -12,10 +12,11 @@ export default ({ command }: ConfigEnv): UserConfig => {
   const isBuild = command === 'build';
   let base: string;
   if (command === 'build') {
-    base = '/';
+    base = './';
   } else {
     base = '/';
   }
+  console.log('base', base);
   return {
     base,
     publicDir: 'public', //静态资源服务的文件夹
