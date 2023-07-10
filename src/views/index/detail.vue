@@ -21,7 +21,7 @@
                   <span class="a-price" style="font-size: 20px;">{{ detailData.price }}元/时</span>
                 </span>
                 <div class="translators flex-view" style="">
-                  <span>科目：</span>
+                  <span>年级:</span>
                   <span class="name">{{ classification_title }}</span>
                 </div>
                 <div class="translators flex-view" style="">

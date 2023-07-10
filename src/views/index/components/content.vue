@@ -2,16 +2,16 @@
   <div class="content">
     <div class="content-left">
       <div class="left-search-item">
-        <h4>科目分类</h4>
+        <h4>年级分类</h4>
         <a-tree :tree-data="contentData.cData" :selected-keys="contentData.selectedKeys" @select="onSelect"
-                style="min-height: 220px;">
+          style="min-height: 220px;">
         </a-tree>
       </div>
-      <div class="left-search-item"><h4>热门标签</h4>
+      <div class="left-search-item">
+        <h4>热门标签</h4>
         <div class="tag-view tag-flex-view">
-            <span class="tag" :class="{'tag-select': contentData.selectTagId===item.id}"
-                  v-for="item in contentData.tagData" :key="item.id"
-                  @click="clickTag(item.id)">{{ item.title }}</span>
+          <span class="tag" :class="{ 'tag-select': contentData.selectTagId === item.id }" v-for="item in contentData.tagData"
+            :key="item.id" @click="clickTag(item.id)">{{ item.title }}</span>
         </div>
       </div>
     </div>
@@ -19,22 +19,20 @@
       <div class="top-select-view flex-view">
         <div class="order-view">
           <span class="title"></span>
-          <span class="tab"
-                :class="contentData.selectTabIndex===index? 'tab-select':''"
-                v-for="(item,index) in contentData.tabData"
-                :key="index"
-                @click="selectTab(index)">
+          <span class="tab" :class="contentData.selectTabIndex === index ? 'tab-select' : ''"
+            v-for="(item, index) in contentData.tabData" :key="index" @click="selectTab(index)">
             {{ item }}
           </span>
-          <span :style="{left: contentData.tabUnderLeft + 'px'}" class="tab-underline"></span>
+          <span :style="{ left: contentData.tabUnderLeft + 'px' }" class="tab-underline"></span>
         </div>
       </div>
       <a-spin :spinning="contentData.loading" style="min-height: 200px;">
         <div class="pc-thing-list flex-view">
           <div v-for="item in contentData.pageData" :key="item.id" @click="handleDetail(item)"
-               class="thing-item item-column-3"><!---->
+            class="thing-item item-column-3"><!---->
             <div class="img-view">
-              <img :src="item.cover"></div>
+              <img :src="item.cover">
+            </div>
             <div class="info-view">
               <h3 class="thing-name">{{ item.title.substring(0, 12) }}</h3>
               <span>
@@ -49,21 +47,21 @@
       </a-spin>
       <div class="page-view" style="">
         <a-pagination v-model="contentData.page" size="small" @change="changePage" :hideOnSinglePage="true"
-                      :defaultPageSize="contentData.pageSize" :total="contentData.total" :showSizeChanger="false"/>
+          :defaultPageSize="contentData.pageSize" :total="contentData.total" :showSizeChanger="false" />
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import {listApi as listClassificationList} from '/@/api/classification'
-import {listApi as listTagList} from '/@/api/tag'
-import {listApi as listThingList} from '/@/api/thing'
-import {BASE_URL} from "/@/store/constants";
-import {useUserStore} from "/@/store";
+import { listApi as listClassificationList } from '/@/api/classification'
+import { listApi as listTagList } from '/@/api/tag'
+import { listApi as listThingList } from '/@/api/thing'
+import { BASE_URL } from "/@/store/constants"
+import { useUserStore } from "/@/store"
 
 const userStore = useUserStore()
-const router = useRouter();
+const router = useRouter()
 
 const contentData = reactive({
   selectX: 0,
@@ -73,7 +71,7 @@ const contentData = reactive({
   tagData: [],
   loading: false,
 
-  tabData: ['最新', '最热', '推荐','同城'],
+  tabData: ['最新', '最热', '推荐', '同城'],
   selectTabIndex: 0,
   tabUnderLeft: 12,
 
@@ -91,9 +89,9 @@ onMounted(() => {
 })
 
 const initSider = () => {
-  contentData.cData.push({key:'-1', title:'全部'})
+  contentData.cData.push({ key: '-1', title: '全部' })
   listClassificationList().then(res => {
-    res.data.forEach(item=>{
+    res.data.forEach(item => {
       item.key = item.id
       contentData.cData.push(item)
     })
@@ -114,14 +112,14 @@ const onSelect = (selectedKeys) => {
   contentData.selectedKeys = selectedKeys
   console.log(contentData.selectedKeys[0])
   if (contentData.selectedKeys.length > 0) {
-    getThingList({c: getSelectedKey()})
+    getThingList({ c: getSelectedKey() })
   }
   contentData.selectTagId = -1
 }
 const clickTag = (index) => {
   contentData.selectedKeys = []
   contentData.selectTagId = index
-  getThingList({tag: contentData.selectTagId})
+  getThingList({ tag: contentData.selectTagId })
 }
 
 // 最新|最热|推荐
@@ -131,19 +129,19 @@ const selectTab = (index) => {
   console.log(contentData.selectTabIndex)
   // let sort = (index === 0 ? 'recent' : index === 1 ? 'hot' :'recommend')
 
-  let sort ='recent'
+  let sort = 'recent'
 
-  if(index ==1){
+  if (index == 1) {
     sort = 'hot'
   }
-  else if(index == 2){
+  else if (index == 2) {
     sort = 'recommend'
   }
-  else if(index ==3){
+  else if (index == 3) {
     sort = 'loc'
   }
-  
-  const data = {sort: sort}
+
+  const data = { sort: sort }
   if (contentData.selectTagId !== -1) {
     data['tag'] = contentData.selectTagId
   } else {
@@ -153,7 +151,7 @@ const selectTab = (index) => {
 }
 const handleDetail = (item) => {
   // 跳转新页面
-  let text = router.resolve({name: 'detail', query: {id: item.id}})
+  let text = router.resolve({ name: 'detail', query: { id: item.id } })
   window.open(text.href, '_blank')
 }
 // 分页事件
@@ -169,7 +167,7 @@ const getThingList = (data) => {
     contentData.loading = false
     res.data.forEach((item, index) => {
       if (item.cover) {
-        item.cover = BASE_URL + '/api/staticfiles/image/' +  item.cover
+        item.cover = BASE_URL + '/api/staticfiles/image/' + item.cover
       }
     })
     console.log(res)
@@ -565,5 +563,4 @@ li {
   color: #0F1111;
   font-size: 14px;
 }
-
 </style>

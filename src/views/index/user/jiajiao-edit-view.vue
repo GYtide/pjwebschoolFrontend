@@ -3,109 +3,101 @@
     <div class="list-title">家教入驻</div>
     <a-spin :spinning="loading" style="min-height: 200px;">
       <div class="list-content">
-      <div class="edit-view">
-        <div class="item flex-view">
-          <div class="label">头像</div>
-          <div class="right-box avatar-box flex-view">
-            <img id="avatar-img" v-if="tData.form && tData.form.avatar" :src="tData.form.avatar" class="avatar">
-            <img v-else :src="AvatarIcon" class="avatar">
-            <div class="change-tips flex-view">
-                <a-upload
-                  name="file"
-                  accept="image/*"
-                  :multiple="false"
-                  :before-upload="beforeUpload"
-                >
+        <div class="edit-view">
+          <div class="item flex-view">
+            <div class="label">头像</div>
+            <div class="right-box avatar-box flex-view">
+              <img id="avatar-img" v-if="tData.form && tData.form.avatar" :src="tData.form.avatar" class="avatar">
+              <img v-else :src="AvatarIcon" class="avatar">
+              <div class="change-tips flex-view">
+                <a-upload name="file" accept="image/*" :multiple="false" :before-upload="beforeUpload">
                   <label>点击更换头像</label>
                 </a-upload>
-              <p class="tip">图片格式支持 GIF、PNG、JPEG，尺寸不小于 200 PX，小于 4 MB</p>
+                <p class="tip">图片格式支持 GIF、PNG、JPEG，尺寸不小于 200 PX，小于 4 MB</p>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="item flex-view">
-          <div class="label">姓名</div>
-          <div class="right-box">
-            <input type="text" v-model="tData.form.title" placeholder="请输入姓名" maxlength="20" class="input-dom">
-            <p class="tip">支持中英文，长度不能超过 20 个字符</p>
+          <div class="item flex-view">
+            <div class="label">姓名</div>
+            <div class="right-box">
+              <input type="text" v-model="tData.form.title" placeholder="请输入姓名" maxlength="20" class="input-dom">
+              <p class="tip">支持中英文，长度不能超过 20 个字符</p>
+            </div>
           </div>
-        </div>
-        <div class="item flex-view">
-          <div class="label">性别</div>
-          <div class="right-box">
-            <a-select placeholder="请选择性别"
-                      allowClear
-                      style="width: 200px;"
-                      v-model:value="tData.form.sex">
-              <a-select-option value="男">男</a-select-option>
-              <a-select-option value="女">女</a-select-option>
-            </a-select>
+          <div class="item flex-view">
+            <div class="label">性别</div>
+            <div class="right-box">
+              <a-select placeholder="请选择性别" allowClear style="width: 200px;" v-model:value="tData.form.sex">
+                <a-select-option value="男">男</a-select-option>
+                <a-select-option value="女">女</a-select-option>
+              </a-select>
+            </div>
           </div>
-        </div>
-        <div class="item flex-view">
-          <div class="label">年龄</div>
-          <div class="right-box">
-            <input type="number" v-model="tData.form.age" placeholder="请输入年龄" maxlength="100" class="input-dom web-input" min="1">
+          <div class="item flex-view">
+            <div class="label">年龄</div>
+            <div class="right-box">
+              <input type="number" v-model="tData.form.age" placeholder="请输入年龄" maxlength="100"
+                class="input-dom web-input" min="1">
+            </div>
           </div>
-        </div>
-        <div class="item flex-view">
-          <div class="label">地区</div>
-          <div class="right-box">
-            <input type="text" v-model="tData.form.location" placeholder="请输入地区" maxlength="100" class="input-dom web-input">
+          <div class="item flex-view">
+            <div class="label">地区</div>
+            <div class="right-box">
+              <input type="text" v-model="tData.form.location" placeholder="请输入地区" maxlength="100"
+                class="input-dom web-input">
+            </div>
           </div>
-        </div>
-        <div class="item flex-view">
-          <div class="label">小时价格</div>
-          <div class="right-box">
-            <input type="number" v-model="tData.form.price" placeholder="请输入价格" maxlength="100" class="input-dom web-input" min="0">
+          <div class="item flex-view">
+            <div class="label">小时价格</div>
+            <div class="right-box">
+              <input type="number" v-model="tData.form.price" placeholder="请输入价格" maxlength="100"
+                class="input-dom web-input" min="0">
+            </div>
           </div>
-        </div>
-        <div class="item flex-view">
-          <div class="label">手机号</div>
-          <div class="right-box">
-            <input type="text" v-model="tData.form.mobile" placeholder="请输入手机号" maxlength="100" class="input-dom web-input">
+          <div class="item flex-view">
+            <div class="label">手机号</div>
+            <div class="right-box">
+              <input type="text" v-model="tData.form.mobile" placeholder="请输入手机号" maxlength="100"
+                class="input-dom web-input">
+            </div>
           </div>
-        </div>
-        <div class="item flex-view">
-          <div class="label">科目</div>
-          <div class="right-box">
-            <a-select placeholder="请选择科目"
-                      allowClear
-                      :options="cData"
-                      style="width: 200px;"
-                      :field-names="{ label: 'title', value: 'id',}"
-                      v-model:value="tData.form.classificationId">
-            </a-select>
+          <div class="item flex-view">
+            <div class="label">年级</div>
+            <div class="right-box">
+              <a-select placeholder="请选择年级" allowClear :options="cData" style="width: 200px;"
+                :field-names="{ label: 'title', value: 'id', }" v-model:value="tData.form.classificationId">
+              </a-select>
+            </div>
           </div>
-        </div>
-        <div class="item flex-view">
-          <div class="label">个人简介</div>
-          <div class="right-box">
-          <textarea v-model="tData.form.description" placeholder="请输入简介" maxlength="200" class="intro">
+          <div class="item flex-view">
+            <div class="label">个人简介</div>
+            <div class="right-box">
+              <textarea v-model="tData.form.description" placeholder="请输入简介" maxlength="200" class="intro">
           </textarea>
-            <p class="tip">限制200字以内</p>
+              <p class="tip">限制200字以内</p>
+            </div>
           </div>
+          <button class="save mg" @click="submit()">保存</button>
         </div>
-        <button class="save mg" @click="submit()">保存</button>
       </div>
-    </div>
     </a-spin>
   </div>
 </template>
 
 <script setup>
-import {message} from "ant-design-vue";
-import {listUserThingApi, updateApi, createApi} from '/@/api/thing'
-import {listApi as listClassificationApi} from '/@/api/classification'
-import {BASE_URL} from "/@/store/constants";
-import {useUserStore} from "/@/store";
+import { message } from "ant-design-vue"
+import { listUserThingApi, updateApi, createApi } from '/@/api/thing'
+import { listApi as listClassificationApi } from '/@/api/classification'
+import { BASE_URL } from "/@/store/constants"
+import { useUserStore } from "/@/store"
 import AvatarIcon from '/@/assets/images/avatar.jpg'
 
-const router = useRouter();
-const userStore = useUserStore();
+const router = useRouter()
+const userStore = useUserStore()
 
 let loading = ref(false)
 let tData = reactive({
-  form:{
+  form: {
     avatar: undefined,
     avatarFile: undefined,
     title: undefined,
@@ -120,13 +112,13 @@ let tData = reactive({
 })
 
 let cData = ref([])
-let sexOption = {"男":String, "女":String}
-onMounted(()=>{
+let sexOption = { "男": String, "女": String }
+onMounted(() => {
   getCDataList()
   getUserThing()
 })
 
-const beforeUpload =(file)=> {
+const beforeUpload = (file) => {
   // 改文件名
   const fileName = new Date().getTime().toString() + '.' + file.type.substring(6)
   const copyFile = new File([file], fileName)
@@ -141,16 +133,16 @@ const getCDataList = () => {
   })
 }
 
-const getUserThing =()=> {
+const getUserThing = () => {
   loading.value = true
   let userId = userStore.user_id
-  listUserThingApi({userId: userId}).then(res => {
+  listUserThingApi({ userId: userId }).then(res => {
     console.log(res)
-    if(res.data && res.data.length > 0){
+    if (res.data && res.data.length > 0) {
       tData.form = res.data[0]
     }
     if (tData.form.cover) {
-      tData.form.avatar = BASE_URL + '/api/staticfiles/image/'  + tData.form.cover
+      tData.form.avatar = BASE_URL + '/api/staticfiles/image/' + tData.form.cover
     }
     loading.value = false
   }).catch(err => {
@@ -158,7 +150,7 @@ const getUserThing =()=> {
     loading.value = false
   })
 }
-const submit =()=> {
+const submit = () => {
   let formData = new FormData()
   let userId = userStore.user_id
   if (tData.form.avatarFile) {
@@ -166,7 +158,7 @@ const submit =()=> {
   }
   if (tData.form.title) {
     formData.append('title', tData.form.title)
-  }else {
+  } else {
     message.warn("姓名不能为空")
     return
   }
@@ -178,52 +170,52 @@ const submit =()=> {
   }
   if (tData.form.sex) {
     formData.append('sex', tData.form.sex)
-  }else {
+  } else {
     message.warn("性别不能为空")
     return
   }
 
   if (tData.form.age) {
     formData.append('age', tData.form.age)
-  }else {
+  } else {
     message.warn("年龄不能为空")
     return
   }
   if (tData.form.mobile) {
     formData.append('mobile', tData.form.mobile)
-  }else {
+  } else {
     message.warn("手机号不能为空")
     return
   }
   if (tData.form.location) {
     formData.append('location', tData.form.location)
-  }else {
+  } else {
     message.warn("地区不能为空")
     return
   }
   if (tData.form.price) {
     formData.append('price', tData.form.price)
-  }else {
+  } else {
     message.warn("价格不能为空")
     return
   }
   if (tData.form.description) {
     formData.append('description', tData.form.description)
-  }else {
+  } else {
     message.warn("简介不能为空")
     return
   }
   formData.append('userId', userId)
   formData.append('status', '1')
 
-  if(tData.form.id) {
+  if (tData.form.id) {
     updateApi(formData).then(res => {
       message.success('保存成功，后台审核中')
       getUserThing()
     }).catch(err => {
       console.log(err)
     })
-  }else {
+  } else {
     createApi(formData).then(res => {
       message.success('保存成功，后台审核中')
       getUserThing()
@@ -237,7 +229,8 @@ const submit =()=> {
 </script>
 
 <style scoped lang="less">
-input, textarea {
+input,
+textarea {
   border-style: none;
   outline: none;
   margin: 0;
@@ -377,5 +370,4 @@ input, textarea {
     }
   }
 }
-
 </style>
