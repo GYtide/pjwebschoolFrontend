@@ -62,7 +62,7 @@
             </div>
           </div>
           <div class="item flex-view">
-            <div class="label">年纪</div>
+            <div class="label">年级</div>
             <div class="right-box">
               <a-select placeholder="请选择年级" allowClear :options="cData" style="width: 200px;"
                 :field-names="{ label: 'title', value: 'id', }" v-model:value="tData.form.classificationId">

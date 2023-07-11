@@ -36,7 +36,7 @@
                   <span>地区：</span>
                   <span class="name">{{ detailData.location }}</span>
                 </div>
-                <div class="flex-view">
+                <div v-if="route.query.id.trim() != userStore.user_id" class="flex-view">
                   <button class="buy-btn" @click="handleOrder(detailData)">
                     <img :src="AddIcon" />
                     <span>立即联系</span>
